@@ -5,10 +5,24 @@ namespace App\Components;
 
 class ErrorCode
 {
+    const SYSTEM_ERROR = [
+        10001,
+        '系统错误'
+    ];
 
     const PERMISSION_DENIED = [
-        10001,
+        10002,
         '权限不足'
+    ];
+
+    const CAPTCHA_ERROR = [
+        200001,
+        '验证码错误，请重新获取'
+    ];
+
+    const ERR_THROTTLE = [
+        20429,
+        '请求过于频繁，请稍后重试'
     ];
 
 }

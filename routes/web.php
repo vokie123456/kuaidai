@@ -11,6 +11,18 @@
 |
 */
 
+Route::get('test', function(\App\Components\Sms $sms) {
+    $code = rand(1000, 9999);
+    return $sms->send('13632377543', "【借贷专家】您的验证码是：{$code}。");
+});
+
 Route::group(['namespace' => 'Web'], function() {
+
+    // 登录
+    Route::get('login', 'AuthController@loginView');
+    Route::post('login', 'AuthController@login');
+
+    // 获取验证码
+    Route::post('captcha', 'AuthController@captcha')->middleware('api_throttle:10,10');
 
 });

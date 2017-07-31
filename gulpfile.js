@@ -14,6 +14,17 @@ require('laravel-elixir-vue-2');
 */
 
 elixir(function(mix) {
+    // Web
+    mix.webpack('web/login.js', 'public/js/login.js');
+    mix.version([
+        'js/login.js'
+    ]);
+
+    mix.browserSync({
+        proxy: 'kd-l.lbog.cn'
+    });
+
+    return;
 
     mix.scripts('require-config.js');
     mix.scripts('utils.js');

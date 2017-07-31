@@ -36,6 +36,11 @@ class CacheName
         '统计-PV'
     ];
 
+    const LOGIN_CAPTCHA = [
+        'login_captcha',
+        '注册验证码'
+    ];
+
     /**
      * 获取所有缓存key
      */
