@@ -37,10 +37,7 @@ class RouteServiceProvider extends ServiceProvider
     {
         $this->mapAdminRoutes();
 
-        $this->mapBlogRoutes();
-
-        $this->mapApiRoutes();
-        //
+        $this->mapWebRoutes();
     }
 
     /**
@@ -58,33 +55,16 @@ class RouteServiceProvider extends ServiceProvider
     }
 
     /**
-     * 博客地址
+     * Web前端路由
      */
-    protected function mapBlogRoutes()
+    protected function mapWebRoutes()
     {
         Route::group([
             'middleware' => 'web',
             'namespace' => $this->namespace,
+            'domain' => config('domain.web'),
         ], function ($router) {
-            require base_path('routes/blog.php');
-        });
-    }
-
-    /**
-     * Define the "api" routes for the application.
-     *
-     * These routes are typically stateless.
-     *
-     * @return void
-     */
-    protected function mapApiRoutes()
-    {
-        Route::group([
-            'middleware' => 'api',
-            'namespace' => $this->namespace,
-            'prefix' => 'api',
-        ], function ($router) {
-            require base_path('routes/api.php');
+            require base_path('routes/web.php');
         });
     }
 
