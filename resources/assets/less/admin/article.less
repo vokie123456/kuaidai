@@ -1,0 +1,60 @@
+.tag{
+  .glyphicon {
+    top: 2px;
+    color: #337ab7;
+    cursor: pointer;
+
+    &:hover,
+    &:focus{
+      color: #ff3d36;
+    }
+  }
+
+  a:hover,
+  a:focus {
+    text-decoration: none;
+  }
+}
+
+.modal-images-list {
+  max-height: 500px;
+  overflow-y: auto;
+
+  .modal-images-item{
+    float: left;
+    margin: 0 5px 5px 0;
+    padding: 3px;
+    width: 105px;
+    height: 105px;
+    text-align: center;
+    overflow: hidden;
+
+    img{
+      width: 100%!important;
+      height: auto!important;
+      vertical-align: middle;
+    }
+
+    &:hover{
+      border: 3px #337ab7 solid;
+      padding: 0;
+    }
+  }
+
+  .active{
+    border: 3px #02C801 solid!important;
+    padding: 0;
+  }
+}
+
+img{
+  &.big{
+    width: 160px;
+    height: 80px;
+  }
+
+  &.small{
+    width: 80px;
+    height: 80px;
+  }
+}
