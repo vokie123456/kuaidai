@@ -11,15 +11,26 @@
 |
 */
 
-Route::get('test', function(\App\Components\Sms $sms) {
-    $code = rand(1000, 9999);
-    return $sms->send('13632377543', "【借贷专家】您的验证码是：{$code}。");
-});
-
 Route::group(['namespace' => 'Web'], function() {
 
+    Route::get('', 'HomeController@index');
+
+    // 用户
+    Route::group(['prefix' => 'user'], function() {
+        // 我的
+        Route::get('me', 'UserController@me');
+
+        // 更新个人信息
+        Route::post('set-user-info', 'UserController@setUserInfo');
+    });
+
+    // 借贷
+    Route::group(['prefix' => 'loan'], function() {
+        // 借贷方案
+        Route::get('cases', 'LoanController@cases');
+    });
+
     // 登录
-    Route::get('login', 'AuthController@loginView');
     Route::post('login', 'AuthController@login');
 
     // 获取验证码

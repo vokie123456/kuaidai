@@ -1,10 +1,10 @@
 <style lang="less">
     @import "../less/basic.less";
-    #app{
-        margin-top: 30px;
+    .el-dialog__body{
+        padding-left: 0;
+        padding-right: 0;
     }
     .el-form-item{
-        padding: 5px 15px;
         background: #fff;
         border-bottom: 1px solid #f4f4f4;
         margin-bottom: 0;
@@ -21,22 +21,13 @@
         width: 100%;
         color: @mainColor;
     }
-    .box-login{
-        margin-top: 50px;
-        padding: 0 15px;
-
-        .btn-login{
-            background: @mainColor;
-            color: #FFF;
-            width: 100%;
-            padding: 10px;
-        }
+    .btn-login{
+        background-color: @mainColor;
+        color: #fff;
+        width: 100%;
     }
     .agreement{
-        position: fixed;
-        bottom: 5px;
-        left: 0;
-        right: 0;
+        margin-top: 5px;
 
         p {
             text-align: center;
@@ -52,30 +43,32 @@
 </style>
 
 <template>
-    <div id="app">
-        <el-form ref="form" label-width="60px">
-            <el-form-item label="手机号">
-                <el-input v-model="form.mobile"></el-input>
-            </el-form-item>
+    <div>
+        <el-dialog :visible.sync="isShow" size="large" :close-on-click-modal="false" :close-on-press-escape="false">
+            <el-form ref="form" label-width="60px">
+                <el-form-item label="手机号">
+                    <el-input v-model="form.mobile"></el-input>
+                </el-form-item>
 
-            <el-form-item label="验证码">
-                <el-col :span="12">
-                    <el-input v-model="form.captcha"></el-input>
-                </el-col>
+                <el-form-item label="验证码">
+                    <el-col :span="12">
+                        <el-input v-model="form.captcha"></el-input>
+                    </el-col>
 
-                <el-col :span="10" :offset="2">
-                    <el-button @click="handleCaptcha" class="captcha" :disabled="form.mobile.length != 11 || !canGetCaptcha" type="text">{{captchaText}}</el-button>
-                </el-col>
-            </el-form-item>
-        </el-form>
+                    <el-col :span="10" :offset="2">
+                        <el-button @click="handleCaptcha" class="captcha" :disabled="form.mobile.length != 11 || !canGetCaptcha" type="text">{{captchaText}}</el-button>
+                    </el-col>
+                </el-form-item>
+            </el-form>
 
-        <el-col class="box-login">
-            <el-button @click="handleLogin" class="btn-login">登录</el-button>
-        </el-col>
+            <span slot="footer" class="dialog-footer">
+                <el-button @click="handleLogin" class="btn-login">登录</el-button>
 
-        <div class="agreement">
-            <p>登录即代表您同意 <a href="#">借贷专家服务协议</a></p>
-        </div>
+                <div class="agreement">
+                    <p>登录即代表您同意 <a href="javascript:void(0);">借贷专家服务协议</a></p>
+                </div>
+            </span>
+        </el-dialog>
     </div>
 </template>
 
@@ -89,7 +82,17 @@
                 },
                 canGetCaptcha: true,
                 captchaText: '获取验证码',
+                isShow: false,
             };
+        },
+        props: ['show'],
+        watch: {
+            show(value) {
+                this.isShow = value;
+            },
+            isShow(value) {
+                window.app.showLoginDialog = value;
+            }
         },
         methods: {
             handleCaptcha() {
@@ -112,8 +115,10 @@
             },
 
             handleLogin() {
+                let self = this;
                 this.$http.post('/login', this.form).then(() => {
-                    window.location.href = '/';
+                    self.isShow = false;
+                    self.$router.go(0);
                 });
             }
         }

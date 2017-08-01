@@ -20,6 +20,11 @@ class ErrorCode
         '验证码错误，请重新获取'
     ];
 
+    const NOT_AUTH = [
+        200403,
+        '请登录'
+    ];
+
     const ERR_THROTTLE = [
         20429,
         '请求过于频繁，请稍后重试'

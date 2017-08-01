@@ -15,9 +15,9 @@ require('laravel-elixir-vue-2');
 
 elixir(function(mix) {
     // Web
-    mix.webpack('web/login.js', 'public/js/login.js');
+    mix.webpack('web/app.js', 'public/js/app.js');
     mix.version([
-        'js/login.js'
+        'js/app.js'
     ]);
 
     mix.browserSync({

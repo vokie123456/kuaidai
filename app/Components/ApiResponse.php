@@ -42,5 +42,16 @@ class ApiResponse extends JsonResponse
         return new self($data, $code, $msg);
     }
 
+    /**
+     * 构建成功数据
+     * @param array $data
+     * @param int $code
+     * @param string $msg
+     * @return ApiResponse
+     */
+    public static function buildSuccess(array $data, $code = 0, $msg = 'ok')
+    {
+        return new self($data, $code, $msg);
+    }
 
 }

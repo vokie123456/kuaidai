@@ -29,15 +29,6 @@ class AuthController extends Controller
     }
 
     /**
-     * 登录视图
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
-     */
-    public function loginView()
-    {
-        return view('web.auth.login');
-    }
-
-    /**
      * 登录
      * @param Request $request
      * @return ApiResponse
