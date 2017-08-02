@@ -1,5 +1,5 @@
 <style lang="less">
-    @import "../less/basic.less";
+    @import "../less/vars.less";
     .el-dialog__body{
         padding-left: 0;
         padding-right: 0;

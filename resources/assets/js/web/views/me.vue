@@ -1,5 +1,4 @@
 <style lang="less">
-    @import "../less/basic.less";
     .el-form-item{
         padding: 5px 15px;
         background: #fff;

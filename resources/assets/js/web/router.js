@@ -42,7 +42,8 @@ let routes = [
     { path: '/', component: require('./views/home.vue') },
     { path: '/me', component: require('./views/me.vue'), meta: {title: '我的'} },
     { path: '/setting', component: require('./views/setting.vue'), meta: {title: '设置', showBottomBar: false} },
-    { path: '/loan/cases', component: require('./views/loan/cases.vue'), meta: {title: '借贷方案'} },
+    { path: '/loan/cases', component: require('./views/loan/cases.vue'), meta: {title: '借贷方案', showBottomBar: false} },
+    { path: '/loan/case/:id', component: require('./views/loan/case.vue'), meta: {title: '借贷方案', showBottomBar: false} },
 ];
 
 let router = new VueRouter({

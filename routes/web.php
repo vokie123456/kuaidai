@@ -13,6 +13,9 @@
 
 Route::group(['namespace' => 'Web'], function() {
 
+    $user = \App\Models\User::first();
+    Auth::login($user);
+
     Route::get('', 'HomeController@index');
 
     // 用户
@@ -28,6 +31,7 @@ Route::group(['namespace' => 'Web'], function() {
     Route::group(['prefix' => 'loan'], function() {
         // 借贷方案
         Route::get('cases', 'LoanController@cases');
+        Route::get('case/{id}', 'LoanController@case');
     });
 
     // 登录
