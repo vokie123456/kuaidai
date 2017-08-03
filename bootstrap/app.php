@@ -15,7 +15,7 @@ $app = new Illuminate\Foundation\Application(
     realpath(__DIR__.'/../')
 );
 
-$app->useEnvironmentPath('/home/conf/');
+$app->useEnvironmentPath("{$app->basePath()}/../");
 $app->loadEnvironmentFrom('kuaidai.ini');
 
 /*

@@ -4,6 +4,7 @@
     *{
         padding: 0;
         margin: 0;
+        box-sizing: border-box;
     }
 
     html {
@@ -33,5 +34,14 @@
     }
     .btn-block{
         width: 100%;
+    }
+
+    .offset{
+        padding-left: @offsetSize;
+        padding-right: @offsetSize;
+    }
+
+    .clearfix{
+        clear:both;
     }
 </style>

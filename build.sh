@@ -8,7 +8,7 @@
 projectName="kuaidai"
 
 # Git地址
-gitRepo="git@gitlab.etcchebao.cn:etc/api.peccancy.git"
+gitRepo="git@github.com:lbogcn/kuaidai.git"
 
 # 发布目录
 releasePath="/home/wwwroot"

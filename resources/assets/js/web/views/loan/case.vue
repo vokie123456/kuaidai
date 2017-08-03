@@ -1,11 +1,8 @@
 <style lang="less">
+    @import "../../less/vars";
+
     #loan-case {
         padding-bottom: 1em;
-
-        .offset{
-            padding-left: 0.5em;
-            padding-right: 0.5em;
-        }
 
         .case-info{
             background-color: #4970f3;

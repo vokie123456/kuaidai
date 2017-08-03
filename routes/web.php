@@ -13,9 +13,6 @@
 
 Route::group(['namespace' => 'Web'], function() {
 
-    $user = \App\Models\User::first();
-    Auth::login($user);
-
     Route::get('', 'HomeController@index');
 
     // 用户
