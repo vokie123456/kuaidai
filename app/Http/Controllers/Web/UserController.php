@@ -51,6 +51,7 @@ class UserController extends Controller
                     'id' => $user->id,
                     'username' => $user->username,
                     'nickname' => $user->nickname,
+                    'avatar' => '/images/icon/avatar.png',
                 )
             ]);
         } else {

@@ -1,17 +1,20 @@
 <style lang="less">
+    #setting{
+
+    }
 </style>
 
 <template>
-    <div>
-        <el-form ref="form" label-width="40px">
-            <el-form-item label="昵称">
-                <el-input v-model="form.nickname"></el-input>
-            </el-form-item>
-        </el-form>
+    <div id="setting">
+        <div class="page-part">&nbsp;</div>
 
-        <el-col class="box-login">
-            <el-button @click="handleSubmit" class="btn-login">保存</el-button>
-        </el-col>
+        <div class="page-part">
+            <mt-field label="昵称" v-model="form.nickname"></mt-field>
+        </div>
+
+        <div class="page-part page-offset">
+            <mt-button class="btn-primary" size="large" @click="handleSubmit">保存</mt-button>
+        </div>
     </div>
 </template>
 

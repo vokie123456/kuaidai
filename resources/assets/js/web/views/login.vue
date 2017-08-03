@@ -45,34 +45,22 @@
 <template>
     <div>
         <el-dialog :visible.sync="isShow" size="large" :close-on-click-modal="false" :close-on-press-escape="false">
-            <el-form ref="form" label-width="60px">
-                <el-form-item label="手机号">
-                    <el-input v-model="form.mobile"></el-input>
-                </el-form-item>
-
-                <el-form-item label="验证码">
-                    <el-col :span="12">
-                        <el-input v-model="form.captcha"></el-input>
-                    </el-col>
-
-                    <el-col :span="10" :offset="2">
-                        <el-button @click="handleCaptcha" class="captcha" :disabled="form.mobile.length != 11 || !canGetCaptcha" type="text">{{captchaText}}</el-button>
-                    </el-col>
-                </el-form-item>
-            </el-form>
-
-            <span slot="footer" class="dialog-footer">
-                <el-button @click="handleLogin" class="btn-login">登录</el-button>
-
-                <div class="agreement">
-                    <p>登录即代表您同意 <a href="javascript:void(0);">借贷专家服务协议</a></p>
-                </div>
-            </span>
+            <mt-field placeholder="请输入您的手机号" v-model="form.mobile"></mt-field>
+            <mt-field placeholder="请输入验证码" v-model="form.captcha">
+                <mt-button @click="handleCaptcha" :disabled="form.mobile.length != 11 || !canGetCaptcha">{{captchaText}}</mt-button>
+            </mt-field>
+            <mt-button type="primary" size="large" @click="handleLogin">登录</mt-button>
         </el-dialog>
     </div>
 </template>
 
 <script>
+    import Vue from 'vue';
+    import { Dialog } from 'element-ui';
+    import 'element-ui/lib/theme-default/dialog.css';
+    import 'element-ui/lib/theme-default/icon.css';
+    Vue.use(Dialog);
+
     export default {
         data() {
             return {
@@ -116,9 +104,11 @@
 
             handleLogin() {
                 let self = this;
-                this.$http.post('/login', this.form).then(() => {
-                    self.isShow = false;
-                    self.$router.go(0);
+                this.$http.post('/login', this.form).then(resp => {
+                    if (resp.body.code === 0) {
+                        self.isShow = false;
+                        self.$router.go(0);
+                    }
                 });
             }
         }

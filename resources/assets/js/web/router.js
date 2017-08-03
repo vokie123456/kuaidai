@@ -2,21 +2,20 @@ import Vue from 'vue';
 import VueRouter from 'vue-router';
 import VueResource from 'vue-resource';
 
+// 引入Loading组件
+import { Indicator } from 'mint-ui';
+
 Vue.use(VueResource);
 Vue.use(VueRouter);
 
 Vue.http.options.emulateJSON = true;
 Vue.http.interceptors.push(function(request, next) {
-    let self = this;
-    let loading = this.$loading({
-        fullscreen: true,
-        lock: true
-    });
+    Indicator.open();
 
     request.headers.set('X-CSRF-TOKEN', document.querySelector('meta[name="csrf-token"]').content);
 
     next(function(response) {
-        loading.close();
+        Indicator.close();
 
         if (typeof response.body === 'object') {
             let body = response.body;
@@ -39,11 +38,17 @@ Vue.http.interceptors.push(function(request, next) {
 });
 
 let routes = [
+
+    // 404默认跳首页
+    { path: '*', component: require('./views/home.vue') },
+
     { path: '/', component: require('./views/home.vue') },
-    { path: '/me', component: require('./views/me.vue'), meta: {title: '我的'} },
-    { path: '/setting', component: require('./views/setting.vue'), meta: {title: '设置', showBottomBar: false} },
-    { path: '/loan/cases', component: require('./views/loan/cases.vue'), meta: {title: '借贷方案', showBottomBar: false} },
-    { path: '/loan/case/:id', component: require('./views/loan/case.vue'), meta: {title: '借贷方案', showBottomBar: false} },
+    { path: '/home', component: require('./views/home.vue') },
+    { path: '/wode', component: require('./views/wode.vue'), meta: {title: '我的'} },
+    { path: '/setting', component: require('./views/setting.vue'), meta: {title: '设置', showTabBar: false} },
+
+    // { path: '/loan/cases', component: require('./views/loan/cases.vue'), meta: {title: '借贷方案', showTabBar: false} },
+    // { path: '/loan/case/:id', component: require('./views/loan/case.vue'), meta: {title: '借贷方案', showTabBar: false} },
 ];
 
 let router = new VueRouter({
@@ -52,11 +57,12 @@ let router = new VueRouter({
 
 router.beforeEach((to, from, next) => {
     // 设置底栏
-    let showBottomBar = true;
-    if (typeof to.meta.showBottomBar !== 'undefined') {
-        showBottomBar = !!to.meta.showBottomBar;
+    let showTabBar = true;
+    if (typeof to.meta.showTabBar !== 'undefined') {
+        showTabBar = !!to.meta.showTabBar;
     }
-    window.app.showBottomBar = showBottomBar;
+    window.app.showTabBar = showTabBar;
+    window.app.router = to;
 
     // 设置标题
     document.title = to.meta.title || window.app.appName || '借贷专家';
