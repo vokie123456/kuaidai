@@ -32,6 +32,19 @@
             .mint-field .mint-cell-title{
                 width: 130px;
             }
+
+            .choice-box-group{
+                display: flex;
+                background: #fff;
+                padding-bottom: 1em;
+
+                .choice-box{
+                    flex: 1;
+                    justify-content:center;
+                    align-items:center;
+                    margin: 0 1em;
+                }
+            }
         }
     }
 
@@ -71,14 +84,39 @@
                     <mt-datetime-picker ref="picker" v-model="form.useLoanTime" type="date"></mt-datetime-picker>
                 </a>
 
-                <mt-field label="职业信息" v-model="form.job">
+                <a class="mint-cell mint-field">
+                    <div class="mint-cell-wrapper">
+                        <div class="mint-cell-title">
+                            <span class="mint-cell-text">职业信息</span>
+                        </div>
+                    </div>
+                </a>
 
-                </mt-field>
+                <div class="choice-box-group">
+                    <choice-box v-model="form.job" value="1">上班族</choice-box>
+                    <choice-box v-model="form.job" value="2">做生意</choice-box>
+                    <choice-box v-model="form.job" value="3">学生党</choice-box>
+                </div>
 
-                <mt-field label="补充信息（多选）" v-model="form.moreInfo">
+                <a class="mint-cell mint-field">
+                    <div class="mint-cell-wrapper">
+                        <div class="mint-cell-title">
+                            <span class="mint-cell-text">补充信息（多选）</span>
+                        </div>
+                    </div>
+                </a>
 
-                </mt-field>
+                <div class="choice-box-group">
+                    <choice-box v-model="form.moreInfo" value="a" :multiple="true">有信用卡</choice-box>
+                    <choice-box v-model="form.moreInfo" value="b" :multiple="true">淘宝账号</choice-box>
+                    <choice-box v-model="form.moreInfo" value="c" :multiple="true">芝麻分高</choice-box>
+                </div>
 
+                <div class="choice-box-group">
+                    <choice-box v-model="form.moreInfo" value="d" :multiple="true">征信良好</choice-box>
+                    <choice-box v-model="form.moreInfo" value="e" :multiple="true">有公积金</choice-box>
+                    <choice-box v-model="form.moreInfo" value="f" :multiple="true">有社保</choice-box>
+                </div>
             </div>
 
         </div>
@@ -91,6 +129,11 @@
 
 <script>
     let date = require('element-ui/lib/utils/date');
+    import Vue from 'vue';
+    import ChoiceBox from './compoments/choice-box.vue';
+
+    Vue.component('choice-box', ChoiceBox);
+
     export default {
         data() {
             return {
