@@ -2,10 +2,12 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
 /**
  * @property string password
+ * @property Collection roles
  */
 class Admin extends Authenticatable
 {
@@ -14,7 +16,7 @@ class Admin extends Authenticatable
      *
      * @var array
      */
-    protected $fillable = ['name', 'username', 'password'];
+    protected $fillable = ['id', 'name', 'username', 'password'];
 
     /**
      * The attributes that should be hidden for arrays.

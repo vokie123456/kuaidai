@@ -3,7 +3,7 @@
 namespace App\Models;
 
 use App\Providers\RouteServiceProvider;
-use App\Services\PermissionImportService;
+use App\Services\ImportService;
 
 /**
  * @property int id
@@ -118,7 +118,7 @@ class AdminNode extends \Eloquent
             $ctl = "{$namespace}\\{$ctl}";
 
             if (class_exists($ctl)) {
-                $nodeTitle = PermissionImportService::parseNode($ctl)['nodeTitle'];
+                $nodeTitle = ImportService::parseNode($ctl)['nodeTitle'];
                 return "【{$nodeTitle}】{$this->attributes['node']}";
             } else {
                 return $this->attributes['node'];

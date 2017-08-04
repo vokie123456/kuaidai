@@ -6,7 +6,7 @@ use App\Components\ApiResponse;
 use App\Http\Controllers\Controller;
 use App\Models\AdminMenu;
 use App\Models\AdminNode;
-use App\Services\PermissionImportService;
+use App\Services\ImportService;
 use Illuminate\Http\Request;
 
 /**
@@ -95,10 +95,10 @@ class MenuController extends Controller
 
     /**
      * 一键导入未注册菜单
-     * @param PermissionImportService $service
+     * @param ImportService $service
      * @return ApiResponse
      */
-    public function import(PermissionImportService $service)
+    public function import(ImportService $service)
     {
         $service->importMenu();
 

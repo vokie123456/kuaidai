@@ -9,10 +9,10 @@ use ReflectionClass;
 
 /**
  * 后台权限自动导入服务
- * @see PermissionImportService::importNode() 导入节点
- * @see PermissionImportService::importMenu() 导入菜单
+ * @see ImportService::importNode() 导入节点
+ * @see ImportService::importMenu() 导入菜单
  */
-class PermissionImportService
+class ImportService
 {
 
     /**

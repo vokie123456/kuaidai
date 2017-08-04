@@ -4,10 +4,13 @@ namespace App\Models;
 
 use Eloquent;
 
+/**
+ * @property int id
+ */
 class AdminRole extends Eloquent
 {
 
-    protected $fillable = ['role', 'name'];
+    protected $fillable = ['id', 'role', 'name'];
 
     /**
      * 权限组

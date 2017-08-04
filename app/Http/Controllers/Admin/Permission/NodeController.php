@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Admin\Permission;
 use App\Components\ApiResponse;
 use App\Http\Controllers\Controller;
 use App\Models\AdminNode;
-use App\Services\PermissionImportService;
+use App\Services\ImportService;
 use Illuminate\Http\Request;
 
 /**
@@ -91,10 +91,10 @@ class NodeController extends Controller
 
     /**
      * 一键导入自动更新节点
-     * @param PermissionImportService $service
+     * @param ImportService $service
      * @return ApiResponse
      */
-    public function import(PermissionImportService $service)
+    public function import(ImportService $service)
     {
         $service->importNode();
 
