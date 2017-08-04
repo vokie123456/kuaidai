@@ -52,6 +52,7 @@ let app = new Vue({
         if (typeof this.$route.meta.showTabBar !== 'undefined') {
             this.showTabBar = !!this.$route.meta.showTabBar;
         }
+        document.body.style.paddingBottom = this.$refs.tabbar.$el.clientHeight + 'px';
     }
 });
 

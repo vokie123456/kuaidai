@@ -12,7 +12,7 @@
 
     <login :show.sync="showLoginDialog"></login>
 
-    <mt-tabbar v-model="tabbarSelected" v-show="showTabBar">
+    <mt-tabbar v-model="tabbarSelected" v-show="showTabBar" :fixed="true" ref="tabbar">
         <mt-tab-item v-for="tabbar in tabbars" :id="tabbar.id" :key="tabbar.id">
             <img slot="icon" :src="tabbar.icon">
             @{{tabbar.name}}

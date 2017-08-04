@@ -38,17 +38,15 @@ Vue.http.interceptors.push(function(request, next) {
 });
 
 let routes = [
-
-    // 404默认跳首页
-    { path: '*', component: require('./views/home.vue') },
-
-    { path: '/', component: require('./views/home.vue') },
     { path: '/home', component: require('./views/home.vue') },
     { path: '/wode', component: require('./views/wode.vue'), meta: {title: '我的'} },
     { path: '/setting', component: require('./views/setting.vue'), meta: {title: '设置', showTabBar: false} },
 
     // { path: '/loan/cases', component: require('./views/loan/cases.vue'), meta: {title: '借贷方案', showTabBar: false} },
     // { path: '/loan/case/:id', component: require('./views/loan/case.vue'), meta: {title: '借贷方案', showTabBar: false} },
+
+    // 默认跳首页
+    { path: '*', redirect: {path: '/home'} },
 ];
 
 let router = new VueRouter({

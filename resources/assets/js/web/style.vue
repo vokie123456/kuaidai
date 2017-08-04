@@ -14,6 +14,12 @@
         background: #f4f4f4;
     }
 
+    .img-responsive{
+        display: block;
+        height: auto;
+        max-width: 100%;
+    }
+
     .page-part {
         margin-bottom: 1em;
     }
