@@ -83,6 +83,15 @@ class PermissionImportService
         $repeatCtls = [];
         $namespace = app()->getProvider(RouteServiceProvider::class)->getNamespace();
 
+        // 判断是否有公共节点
+        if (!AdminNode::find(1)) {
+            AdminNode::create([
+                'id' => 1,
+                'node' => '公共',
+                'route' => '公共',
+            ]);
+        }
+
         foreach (\Route::getRoutes()->getRoutes() as $route) {
             $action = $route->getAction();
             if (!isset($action['controller'])) {

@@ -18,7 +18,7 @@ class AdminNode extends \Eloquent
      *
      * @var array
      */
-    protected $fillable = ['node', 'route'];
+    protected $fillable = ['id', 'node', 'route'];
 
     /** 需要额外显示的字段 @var array */
     protected $appends = ['node_detail'];
