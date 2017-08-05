@@ -49,21 +49,4 @@
         </div>
     </div>
 
-    <div class="row">
-        <div class="col-xs-12">
-            <div class="panel panel-default">
-                <div class="panel-heading">Server</div>
-                <div class="panel-body">
-                    <table class="table table-bordered table-hover table-condensed">
-                        <tr>
-                            <td>硬盘总空间</td><td>{{round(disk_total_space('/') / (1024 * 1024 * 1024), 2)}}GB</td>
-                            <td>硬盘剩余空间</td><td>{{round(disk_free_space('/') / (1024 * 1024 * 1024), 2)}}GB</td>
-                        </tr>
-                    </table>
-                </div>
-            </div>
-
-        </div>
-    </div>
-
 @endsection
