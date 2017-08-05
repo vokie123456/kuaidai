@@ -5,6 +5,7 @@ import router from './router';
 import _ from 'lodash';
 import style from './style.vue';
 import login from './views/login.vue';
+import { MessageBox } from 'mint-ui';
 
 Vue.use(MintUI);
 Vue.component('login', login);
@@ -62,9 +63,13 @@ let app = new Vue({
         } else {
             this.showTabBar = true;
         }
-
-        // this.tabbarHeight = this.$refs.tabbar.$el.clientHeight + 'px';
     }
 });
+
+// 替换原生弹窗
+window.alert = function(msg, title) {
+    title = title || app.appName;
+    MessageBox(title, msg);
+};
 
 window.app = app;

@@ -67,10 +67,10 @@
             <div class="form">
                 <mt-cell title="完善贷款需求，有助于系统精准分析" class="desc-text"></mt-cell>
                 <mt-field label="本人姓名" v-model="form.name" placeholder="请输入真实姓名"></mt-field>
-                <mt-field label="身份证号" v-model="form.idCard" placeholder="请输入身份证号"></mt-field>
-                <mt-field label="借款金额" v-model="form.loanAmount">元</mt-field>
+                <mt-field label="身份证号" v-model="form.id_card" placeholder="请输入身份证号"></mt-field>
+                <mt-field label="借款金额" v-model="form.loan_amount">元</mt-field>
 
-                <mt-field label="借款期限" v-model="form.loanDeadline">天</mt-field>
+                <mt-field label="借款期限" v-model="form.loan_deadline">天</mt-field>
 
                 <a class="mint-cell mint-field">
                     <div class="mint-cell-wrapper" @click="openPicker">
@@ -79,13 +79,13 @@
                         </div>
                         <div class="mint-cell-value">
                             <p class="mint-field-core">
-                                {{form.useLoanTime}}
+                                {{form.use_loan_time}}
                             </p>
                         </div>
                     </div>
                 </a>
 
-                <popup-date-picker :show.sync="option.showUseLoanTime"></popup-date-picker>
+                <popup-date-picker :show.sync="option.showuse_loan_time"></popup-date-picker>
 
                 <a class="mint-cell mint-field">
                     <div class="mint-cell-wrapper">
@@ -144,61 +144,43 @@
         data() {
             return {
                 form: {
-                    name: '',
-                    idCard: '',
-                    loanAmount: '',
-                    loanDeadline: '',
-                    useLoanTime: '',
-                    job: '',
-                    moreInfo: []
+                    name: null,
+                    id_card: null,
+                    loan_amount: null,
+                    loan_deadline: null,
+                    loan_deadline_type: null,
+                    use_loan_time: null,
+                    job: null,
+                    more_info: []
                 },
                 option:{
-                    showUseLoanTime: false,
-                    useLoanTime: [
-                        {
-                            flex: 1,
-                            values: [date.getFullYear(), date.getFullYear() + 1],
-                            textAlign: 'right'
-                        }, {
-                            divider: true,
-                            content: '-',
-                        }, {
-                            flex: 1,
-                            values: ['2016-01', '2016-02', '2016-03', '2016-04', '2016-05', '2016-06'],
-                            textAlign: 'left'
-                        }
-                    ]
+                    showuse_loan_time: false,
                 },
-                slots: [
-                    {
-                        flex: 1,
-                        values: ['2015-01', '2015-02', '2015-03', '2015-04', '2015-05', '2015-06'],
-                        className: 'slot1',
-                        textAlign: 'right'
-                    }, {
-                        divider: true,
-                        content: '-',
-                        className: 'slot2'
-                    }, {
-                        flex: 1,
-                        values: ['2015-01', '2015-02', '2015-03', '2015-04', '2015-05', '2015-06'],
-                        className: 'slot3',
-                        textAlign: 'left'
-                    }
-                ]
             };
         },
         methods:{
             openPicker(){
-                this.option.showUseLoanTime = true;
+                this.option.showuse_loan_time = true;
             },
             handleParse() {
-                this.$router.push('/loan/cases');
+                this.$http.post('/loan/parse', this.form).then(resp => {
+                    if (resp.body.code === 0) {
+                        this.$router.push('/loan/cases');
+                    }
+                });
             }
         },
-        watch:{
-        },
         mounted() {
+//            this.form = {
+//                name: '林博',
+//                id_card: '123456789123456789',
+//                loan_amount: 100,
+//                loan_deadline: 12,
+//                loan_deadline_type: '月',
+//                use_loan_time: '2017-12-01',
+//                job: 1,
+//                more_info: [3,4,5]
+//            };
         }
     }
 </script>

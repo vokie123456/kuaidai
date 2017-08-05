@@ -111,4 +111,8 @@
         }
     }
 
+    .mint-msgbox-confirm{
+        font-size:1em;
+    }
+
 </style>

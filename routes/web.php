@@ -32,7 +32,7 @@ Route::group(['namespace' => 'Web'], function() {
 
     // 借贷
     Route::group(['prefix' => 'loan'], function() {
-        // 借贷方案
+        Route::post('parse', 'LoanController@parse');
         Route::get('cases', 'LoanController@cases');
         Route::get('case/{id}', 'LoanController@case');
     });

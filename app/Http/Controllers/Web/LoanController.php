@@ -5,9 +5,15 @@ namespace App\Http\Controllers\Web;
 use App\Components\ApiResponse;
 use App\Components\ErrorCode;
 use App\Http\Controllers\Controller;
+use App\Models\LoanInfoExtends;
+use App\Models\LoanInfoForms;
 use App\Models\LoanProducts;
 use Auth;
 use Closure;
+use DB;
+use Illuminate\Http\Request;
+use Lang;
+use Validator;
 
 /**
  * 借贷
@@ -33,6 +39,94 @@ class LoanController extends Controller
 
             return $next($request);
         });
+
+        Validator::extend('id_card', function($attribute, $value, $parameters) {
+            $patter = '/^\d{18}$/';
+            return (preg_match($patter, $value)) ? true : false;
+        });
+
+        // 替换语言包
+        Lang::load('*', 'validation', Lang::getLocale());
+        $lines = [
+            'validation.attributes.name' => '姓名',
+            'validation.attributes.id_card' => '身份证号',
+            'validation.attributes.loan_amount' => '借款金额',
+            'validation.attributes.loan_deadline' => '借款期限',
+            'validation.attributes.loan_deadline_type' => '借款期限类型',
+            'validation.attributes.use_loan_time' => '用款日期',
+            'validation.attributes.required' => '职业信息',
+            'validation.id_card' => '身份证号格式错误。',
+            'validation.date_format' => ':attribute格式错误。',
+        ];
+        Lang::addLines($lines, Lang::getLocale());
+    }
+
+    /**
+     * 分析贷款方案
+     * @param Request $request
+     * @return ApiResponse
+     * @throws \Exception
+     */
+    public function parse(Request $request)
+    {
+        $this->validate($request, array(
+            'name' => ['required', 'between:2,8'],
+            'id_card' => ['required', 'id_card'],
+            'loan_amount' => ['required', 'integer'],
+            'loan_deadline' => ['required'],
+            'loan_deadline_type' => ['required'],
+            'use_loan_time' => ['required', 'date_format:Y-m-d'],
+            'job' => ['required'],
+            'more_info' => ['array']
+        ));
+
+        // 构建数据
+        $userId = $this->auth->user()->getAuthIdentifier();
+        $fields = ['name', 'id_card', 'loan_amount', 'loan_deadline', 'loan_deadline_type', 'use_loan_time', 'job'];
+        $data = $request->only($fields);
+        $data['user_id'] = $userId;
+
+        $extends = [];
+        if (is_array($request->input('more_info'))) {
+            foreach ($request->input('more_info') as $moreInfo) {
+                $extends[] = new LoanInfoExtends([
+                    'extend' => $moreInfo
+                ]);
+            }
+        }
+
+        DB::beginTransaction();
+        try {
+            /** @var LoanInfoForms $form */
+            $form = LoanInfoForms::where('user_id', $userId)->first();
+
+            if (empty($form)) {
+                // 新建
+                $form = LoanInfoForms::create($data);
+            } else {
+                // 更新
+                foreach ($data as $key => $value) {
+                    $form->$key = $value;
+                }
+                $form->saveOrFail();
+
+                // 删除关联表
+                $form->_extends()->delete($form->id);
+            }
+
+            // 写入扩展信息
+            if (count($extends) > 0) {
+                $form->_extends()->saveMany($extends);
+            }
+
+            DB::commit();
+        } catch (\Exception $e) {
+            DB::rollBack();
+
+            throw $e;
+        }
+
+        return ApiResponse::buildFromArray();
     }
 
     /**
@@ -44,6 +138,7 @@ class LoanController extends Controller
         $fields = ['id', 'name', 'logo', 'loan_limit_min', 'loan_limit_max', 'deadline_min', 'deadline_max', 'deadline_type', 'loaneders'];
         $cases = LoanProducts::select($fields)
             ->where('status', 1)
+            ->limit(4)
             ->get()
             ->toArray();
 
