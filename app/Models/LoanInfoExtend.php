@@ -4,7 +4,10 @@ namespace App\Models;
 
 use Eloquent;
 
-class LoanInfoExtends extends Eloquent
+/**
+ * @property int extend
+ */
+class LoanInfoExtend extends Eloquent
 {
 
     public $timestamps = false;

@@ -5,8 +5,8 @@ namespace App\Http\Controllers\Web;
 use App\Components\ApiResponse;
 use App\Components\ErrorCode;
 use App\Http\Controllers\Controller;
-use App\Models\LoanInfoExtends;
-use App\Models\LoanInfoForms;
+use App\Models\LoanInfoExtend;
+use App\Models\LoanInfoForm;
 use App\Models\LoanProducts;
 use Auth;
 use Closure;
@@ -89,7 +89,7 @@ class LoanController extends Controller
         $extends = [];
         if (is_array($request->input('more_info'))) {
             foreach ($request->input('more_info') as $moreInfo) {
-                $extends[] = new LoanInfoExtends([
+                $extends[] = new LoanInfoExtend([
                     'extend' => $moreInfo
                 ]);
             }
@@ -97,12 +97,12 @@ class LoanController extends Controller
 
         DB::beginTransaction();
         try {
-            /** @var LoanInfoForms $form */
-            $form = LoanInfoForms::where('user_id', $userId)->first();
+            /** @var LoanInfoForm $form */
+            $form = LoanInfoForm::where('user_id', $userId)->first();
 
             if (empty($form)) {
                 // 新建
-                $form = LoanInfoForms::create($data);
+                $form = LoanInfoForm::create($data);
             } else {
                 // 更新
                 foreach ($data as $key => $value) {
@@ -131,16 +131,22 @@ class LoanController extends Controller
 
     /**
      * 借贷方案
+     * @param LoanProducts $products
      * @return ApiResponse
      */
-    public function cases()
+    public function cases(LoanProducts $products)
     {
-        $fields = ['id', 'name', 'logo', 'loan_limit_min', 'loan_limit_max', 'deadline_min', 'deadline_max', 'deadline_type', 'loaneders'];
-        $cases = LoanProducts::select($fields)
-            ->where('status', 1)
-            ->limit(4)
-            ->get()
-            ->toArray();
+        // 获取用户信息
+        $userId = $this->auth->user()->getAuthIdentifier();
+        /** @var LoanInfoForm $form */
+        $form = LoanInfoForm::where('user_id', $userId)->first();
+
+        // 判断是否有填写贷款信息
+        if (empty($form)) {
+            return ApiResponse::buildFromArray(ErrorCode::NOT_HAS_LOAN_INFO);
+        }
+
+        $cases = $products->getUserCases($form);
 
         $data = array(
             'cases' => $cases

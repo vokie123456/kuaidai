@@ -19,11 +19,18 @@ Vue.http.interceptors.push(function(request, next) {
 
         if (typeof response.body === 'object') {
             let body = response.body;
+            let code = body.code;
 
-            if (body.code === 0) {
+            if (code === 0) {
                 return response;
             } else if (body.code === 200403) {
+                // 登录
                 window.app.showLoginDialog = true;
+            } else if (code === 200003) {
+                window.alert(body.msg).then(() => {
+                    // 跳转到首页填写贷款信息
+                    this.$router.push('/');
+                });
             } else {
                 alert(body.msg);
 

@@ -6,8 +6,14 @@ use Eloquent;
 
 /**
  * @property int id
+ * @property float loan_amount
+ * @property string loan_deadline_type
+ * @property int loan_deadline
+ * @property string use_loan_time
+ * @property int job
+ * @property LoanInfoExtend[]|\Illuminate\Database\Eloquent\Collection _extends
  */
-class LoanInfoForms extends Eloquent
+class LoanInfoForm extends Eloquent
 {
 
     protected $fillable = [
@@ -20,7 +26,7 @@ class LoanInfoForms extends Eloquent
      */
     public function _extends()
     {
-        return $this->hasMany(LoanInfoExtends::class, 'form_id', 'id');
+        return $this->hasMany(LoanInfoExtend::class, 'form_id', 'id');
     }
 
 

@@ -69,7 +69,7 @@ let app = new Vue({
 // 替换原生弹窗
 window.alert = function(msg, title) {
     title = title || app.appName;
-    MessageBox(title, msg);
+    return MessageBox.alert(msg, title);
 };
 
 window.app = app;

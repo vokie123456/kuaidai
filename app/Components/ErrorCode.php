@@ -20,12 +20,15 @@ class ErrorCode
         '验证码错误，请重新获取'
     ];
 
-
     const ERR_PARAM = [
         200002,
         '参数有误'
     ];
 
+    const NOT_HAS_LOAN_INFO = [
+        200003,
+        '请填写贷款信息'
+    ];
 
     const NOT_AUTH = [
         200403,

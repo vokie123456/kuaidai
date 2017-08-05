@@ -143,7 +143,6 @@
         },
         mounted() {
             this.getCases();
-            console.log(document.querySelector('#loan-cases'));
             document.querySelector('#loan-cases').style.minHeight = window.screen.availHeight + 'px';
         }
     }

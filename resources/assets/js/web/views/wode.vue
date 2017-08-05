@@ -22,7 +22,7 @@
         </div>
 
         <div class="page-part">
-            <mt-cell title="借款方案" to="/#/setting" is-link>
+            <mt-cell title="借款方案" :to="{path: '/loan/cases'}" is-link>
                 <img slot="icon" class="icon" src="/images/icon/icon-01.png">
             </mt-cell>
             <mt-cell title="推荐好友" to="/#/setting" is-link>
