@@ -54,4 +54,15 @@ class ApiResponse extends JsonResponse
         return new self($data, $code, $msg);
     }
 
+    /**
+     * 构建失败数据
+     * @param $code
+     * @param $msg
+     * @return ApiResponse
+     */
+    public static function buildFail($code, $msg)
+    {
+        return new self(null, $code, $msg);
+    }
+
 }

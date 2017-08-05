@@ -20,6 +20,13 @@ class ErrorCode
         '验证码错误，请重新获取'
     ];
 
+
+    const ERR_PARAM = [
+        200002,
+        '参数有误'
+    ];
+
+
     const NOT_AUTH = [
         200403,
         '请登录'

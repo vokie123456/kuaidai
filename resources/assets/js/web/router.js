@@ -42,8 +42,7 @@ let routes = [
     { path: '/wode', component: require('./views/wode.vue'), meta: {title: '我的'} },
     { path: '/setting', component: require('./views/setting.vue'), meta: {title: '设置', showTabBar: false} },
     { path: '/loan/cases', component: require('./views/loan/cases.vue'), meta: {title: '借贷方案', showTabBar: false} },
-
-    // { path: '/loan/case/:id', component: require('./views/loan/case.vue'), meta: {title: '借贷方案', showTabBar: false} },
+    { path: '/loan/case/:id', component: require('./views/loan/case.vue'), meta: {title: '借贷方案', showTabBar: false} },
 
     // 默认跳首页
     { path: '*', redirect: {path: '/home'} },
@@ -64,6 +63,9 @@ router.beforeEach((to, from, next) => {
 
     // 设置标题
     document.title = to.meta.title || window.app.appName || '借贷专家';
+
+    // 每次跳转都让页面回到顶部
+    document.body.scrollTop = document.documentElement.scrollTop = 0;
 
     next();
 });

@@ -1,4 +1,6 @@
 <style lang="less">
+    @import "../../less/vars";
+
     #loan-cases {
         background-color: #4970f3;
         position: relative;
@@ -12,7 +14,7 @@
         }
 
         .case{
-            border-radius: 1em;
+            border-radius: 0.6em;
             background: #fff;
             height: 9em;
             box-shadow: 0 0 5px 0 #555;
@@ -77,15 +79,6 @@
             background: #f4f4f4;
             height: 1px;
             width: 100%;
-        }
-
-        .red{
-            color: #ff504d;
-        }
-
-        .page-part:last-child {
-            margin-bottom: 0;
-            padding-bottom: 1em;
         }
     }
 </style>

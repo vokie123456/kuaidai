@@ -58,6 +58,10 @@
 
             },
             isActive() {
+                if (typeof this.checked === 'undefined' || typeof this.value === 'undefined') {
+                    return false;
+                }
+
                 if (this.isMultiple) {
                     return _.indexOf(this.checked, this.value) >= 0;
                 } else {

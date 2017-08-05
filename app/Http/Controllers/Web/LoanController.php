@@ -47,20 +47,6 @@ class LoanController extends Controller
             ->get()
             ->toArray();
 
-//        $cases = array();
-//
-//        for ($i = 0; $i < 10; $i++) {
-//            $cases[] = array(
-//                'id' => $i,
-//                'icon' => '/images/web/cases1.png',
-//                'title' => '闪电借贷' .rand(10, 99),
-//                'loan_num' => rand(100, 999),// 放款人数
-//                'loan_limit' => rand(100, 200) . '-' . rand(300, 400) . '元',
-//                'deadline' => rand(1,3) . '-' . rand(4,6) . '月',
-//                'monthly_rate' => rand(1, 4) / 100,
-//            );
-//        }
-
         $data = array(
             'cases' => $cases
         );
@@ -75,19 +61,17 @@ class LoanController extends Controller
      */
     public function case($id)
     {
-        $case = array(
-            'icon' => '/images/web/cases1.png',
-            'title' => '闪电借贷',
-            'loan_num' => 100,// 放款人数
-            'loan_limit' => rand(100, 200) . '-' . rand(300, 400) . '元',
-            'deadline' => rand(1,3) . '-' . rand(4,6) . '月',
-            'monthly_rate' => rand(1, 4) / 100,
-            'condition' => '条件',
-            'process' => '流程',
-            'audit_instructions' => '审核说明',
-            'remind' => '关键提醒',
-            'detail' => '详情介绍',
-        );
+        $case = LoanProducts::find($id);
+
+        if (empty($case)) {
+            return ApiResponse::buildFail(ErrorCode::ERR_PARAM[0], '方案不存在！');
+        }
+
+        $case = $case->toArray();
+        $case['condition'] = explode("\n", $case['condition']);
+        $case['process'] = explode("\n", $case['process']);
+        $case['remind'] = explode("\n", $case['remind']);
+        $case['detail'] = str_replace("\n", '<br>', $case['detail']);
 
         $data = array(
             'id' => $id,

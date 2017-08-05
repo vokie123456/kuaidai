@@ -2,70 +2,120 @@
     @import "../../less/vars";
 
     #loan-case {
-        padding-bottom: 1em;
+        padding-bottom: 4em;
 
-        .case-info{
-            background-color: #4970f3;
-            padding: 1em 0;
-
-            .case-item {
-                border-radius: 5px;
-                background-color: #fff;
-                height: 8.5em;
-                padding: 1em 0.5em;
-                margin: 0 1em 1em;
-            }
+        .case-header{
+            background: @mainColor;
+            padding: 1em;
         }
 
-        .case-body {
-            height: 5em;
-            padding-bottom: 0.5em;
+        .case{
+            border-radius: 0.6em;
+            background: #fff;
+            height: 9.5em;
+            box-shadow: 0 0 5px 0 #555;
+            padding: 1em;
+        }
 
-            .icon{
-                height: 100%;
-                width: auto;
-                max-width: 33%;
-                float: left;
-                margin: 0 0.5em;
+        .case-body{
+            display: flex;
+            height: 4em;
+            margin-bottom: 1em;
+
+            .case-icon{
+                justify-content:center;
+                align-items:center;
+                width: 4em;
+                height: 4em;
+            }
+
+            .case-content{
+                display: flex;
+                flex-direction: column;
+                flex:1;
+                margin: auto auto auto 1em;
+            }
+
+
+            .case-title{
+                font-weight: normal;
+                font-size: 1.3em;
+                color: #545454;
+            }
+
+            .case-apply{
+                color: #545454;
             }
         }
 
         .case-footer{
-            margin-top: 1em;
+            display: flex;
+            height: 2.5em;
 
-            .key{
+            .case-footer-item{
+                display: flex;
+                flex: 1;
+                flex-direction: column;
                 color: #999;
-                text-align: center;
-            }
-            .value{
-                text-align: center;
-                color: #545454;
-                margin-bottom: 0.5em;
+                font-size: 0.9em;
+                margin: auto;
             }
         }
 
-        .detail-box{
+        .case-loan-icon{
+            width: 1em;
+            height: 1em;
+            margin: 0.3em;
+        }
 
-            .detail-item {
-                margin-bottom: 1em;
-                background: #fff;
+        .case-weight{
+            color: #555;
+        }
 
-                .header{
-                    height: 1.25em;
-                    border-bottom: 1px #f4f4f4 solid;
-                    margin: 0 1em;
-                    padding: 0.5em;
+        .case-weight{
+            color: #555;
+            font-size: 1.2em;
+        }
+    }
 
-                    img{
-                        height: 100%;
-                    }
-                }
+    .fixed-bottom{
+        position: fixed;
+        bottom: 1em;
+        width: 100%;
+    }
 
-                .body{
-                    margin: 0 1em;
-                    padding: 0.5em;
-                }
-            }
+    .desc-cell{
+        background-color: #fff;
+    }
+    .desc-header{
+        height: 2em;
+        padding: 0.45em;
+        border-bottom: 1px #f4f4f4 solid;
+    }
+    .desc-body{
+        padding: 1em 0;
+        color: #555;
+        position: relative;
+    }
+
+    .choice-box-group{
+        background: #fff;
+        padding-bottom: 1em;
+        position: relative;
+
+        &::before,
+        &::after {
+            content: ' ';
+            clear: both;
+            display: table;
+
+        }
+
+        .choice-box{
+            margin: 1.6%;
+            float: left;
+            width: 30%;
+            padding: 0.3em;
         }
     }
 
@@ -73,109 +123,132 @@
 
 <template>
     <div id="loan-case">
+        <div class="page-part page-offset case-header">
+            <div class="case">
+                <div class="case-body">
+                    <div class="case-icon">
+                        <img :src="caseInfo.logo" class="img-responsive">
+                    </div>
 
-        <div class="case-info">
-            <div class="case-item">
-                <el-row class="case-body">
-                    <img :src="caseInfo.icon" class="icon">
-
-                    <el-col :span="16">
-                        <h2 class="title">{{caseInfo.title}}</h2>
-                        <p class="desc">已有<span class="red">{{caseInfo.loan_num}}</span>人申请成功</p>
-                    </el-col>
-                </el-row>
-
-                <el-row class="case-footer">
-                    <el-col :span="8">
-                        <p class="value">{{caseInfo.loan_limit}}</p>
-                        <p class="key">额度</p>
-                    </el-col>
-
-                    <el-col :span="8">
-                        <p class="value">{{caseInfo.deadline}}</p>
-                        <p class="key">期限</p>
-                    </el-col>
-
-                    <el-col :span="8">
-                        <p class="value">{{caseInfo.monthly_rate}}</p>
-                        <p class="key">月利率</p>
-                    </el-col>
-                </el-row>
-            </div>
-        </div>
-
-        <div class="detail-box">
-            <div class="detail-item">
-                <div class="header">
-                    <img src="/images/web/condition.png">
+                    <div class="case-content">
+                        <h3 class="case-title">{{caseInfo.name}}</h3>
+                        <p class="case-apply">已有<span class="red">{{caseInfo.loaneders}}</span>人申请成功</p>
+                    </div>
                 </div>
-                <div class="body">
-                    {{caseInfo.condition}}
-                </div>
-            </div>
 
-            <div class="detail-item">
-                <div class="header">
-                    <img src="/images/web/process.png">
-                </div>
-                <div class="body">
-                    {{caseInfo.process}}
-                </div>
-            </div>
+                <div class="line"></div>
 
-            <div class="detail-item">
-                <div class="header">
-                    <img src="/images/web/audit_instructions.png">
-                </div>
-                <div class="body">
-                    {{caseInfo.audit_instructions}}
-                </div>
-            </div>
-
-            <div class="detail-item">
-                <div class="header">
-                    <img src="/images/web/remind.png">
-                </div>
-                <div class="body">
-                    {{caseInfo.remind}}
-                </div>
-            </div>
-
-            <div class="detail-item">
-                <div class="header">
-                    <img src="/images/web/detail.png">
-                </div>
-                <div class="body">
-                    {{caseInfo.detail}}
+                <div class="case-footer">
+                    <div class="case-footer-item">
+                        <p class="case-weight">{{caseInfo.loan_limit_min*1}}-{{caseInfo.loan_limit_max*1}}元</p>
+                        <p>额度</p>
+                    </div>
+                    <div class="case-footer-item">
+                        <span class="case-weight">{{caseInfo.deadline_min}}-{{caseInfo.deadline_max}}{{caseInfo.deadline_type}}</span>
+                        <span>期限</span>
+                    </div>
+                    <div class="case-footer-item">
+                        <span class="case-weight">{{caseInfo.rate_min*1}}-{{caseInfo.rate_max*1}}%</span>
+                        <span>{{caseInfo.rate_type}}利率</span>
+                    </div>
                 </div>
             </div>
         </div>
 
-        <el-row class="offset">
-            <el-col>
-                <el-button class="btn-primary btn-block">立即申请</el-button>
-            </el-col>
-        </el-row>
+        <div class="desc-cell page-part page-offset">
+            <div class="desc-header">
+                <img src="/images/web/condition.png" class="img-flex" alt="申请条件">
+            </div>
+
+            <div class="desc-body">
+                <p v-for="condition in caseInfo.condition">{{condition}}</p>
+            </div>
+        </div>
+
+        <div class="desc-cell page-part page-offset">
+            <div class="desc-header">
+                <img src="/images/web/process.png" class="img-flex" alt="申请流程">
+            </div>
+
+            <div class="desc-body">
+                <div class="times">
+                    <ul>
+                        <li v-for="process in caseInfo.process">
+                            <b></b>
+                            <span>{{process}}</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="desc-cell page-part page-offset">
+            <div class="desc-header">
+                <img src="/images/web/audit_instructions.png" class="img-flex" alt="审核说明">
+            </div>
+
+            <div class="desc-body">
+                <p>1、持有中国公民身份证</p>
+                <p>2、20-60周岁</p>
+                <p>3、持有信用卡</p>
+                <p>4、固定收入来源</p>
+            </div>
+        </div>
+
+        <div class="desc-cell page-part page-offset">
+            <div class="desc-header">
+                <img src="/images/web/remind.png" class="img-flex" alt="关键提醒">
+            </div>
+
+            <div class="desc-body choice-box-group">
+                <template v-for="(remind, index) in caseInfo.remind">
+                    <choice-box >{{remind}}-{{index}}</choice-box>
+
+                    <div v-if="(index + 1) % 3 == 0" class="clearfix"></div>
+                </template>
+            </div>
+        </div>
+
+        <div class="desc-cell page-part page-offset">
+            <div class="desc-header">
+                <img src="/images/web/detail.png" class="img-flex" alt="详情介绍">
+            </div>
+
+            <div class="desc-body">
+                {{caseInfo.detail}}
+            </div>
+        </div>
+
+        <div class="fixed-bottom page-offset">
+            <mt-button class="btn-primary" size="large" @click="">立即申请</mt-button>
+        </div>
     </div>
 </template>
 
 <script type="es6">
+    import Vue from 'vue';
+    import ChoiceBox from '../compoments/choice-box.vue';
+
+    Vue.component('choice-box', ChoiceBox);
+
     export default {
         data() {
             return {
                 id: null,
                 caseInfo: {
-                    icon: null,
-                    title: null,
-                    loan_num: null,
-                    loan_limit: null,
-                    deadline: null,
-                    monthly_rate: null,
-                    condition: null,
-                    process: null,
                     audit_instructions: null,
-                    remind: null,
+                    condition: [],
+                    deadline_max: null,
+                    deadline_min: null,
+                    deadline_type: null,
                     detail: null,
+                    loan_limit_max: null,
+                    loan_limit_min: null,
+                    loaneders:null,
+                    logo: null,
+                    name: null,
+                    rate_max: null,
+                    rate_min: null,
                 },
             };
         },
