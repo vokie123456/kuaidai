@@ -13,6 +13,12 @@
 
 Route::group(['namespace' => 'Web'], function() {
 
+    // 本地环境自动登录
+    if (config('app.env') == 'local') {
+        $user = \App\Models\User::first();
+        Auth::guard('web')->login($user);
+    }
+
     Route::get('', 'HomeController@index');
 
     // 用户

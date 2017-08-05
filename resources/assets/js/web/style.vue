@@ -14,6 +14,10 @@
         background: #f4f4f4;
     }
 
+    #app {
+        position: relative;
+    }
+
     .img-responsive{
         display: block;
         height: auto;

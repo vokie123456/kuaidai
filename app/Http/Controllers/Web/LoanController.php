@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Web;
 use App\Components\ApiResponse;
 use App\Components\ErrorCode;
 use App\Http\Controllers\Controller;
+use App\Models\LoanProducts;
 use Auth;
 use Closure;
 
@@ -40,19 +41,25 @@ class LoanController extends Controller
      */
     public function cases()
     {
-        $cases = array();
+        $fields = ['id', 'name', 'logo', 'loan_limit_min', 'loan_limit_max', 'deadline_min', 'deadline_max', 'deadline_type', 'loaneders'];
+        $cases = LoanProducts::select($fields)
+            ->where('status', 1)
+            ->get()
+            ->toArray();
 
-        for ($i = 0; $i < 10; $i++) {
-            $cases[] = array(
-                'id' => $i,
-                'icon' => '/images/web/cases1.png',
-                'title' => '闪电借贷' .rand(10, 99),
-                'loan_num' => rand(100, 999),// 放款人数
-                'loan_limit' => rand(100, 200) . '-' . rand(300, 400) . '元',
-                'deadline' => rand(1,3) . '-' . rand(4,6) . '月',
-                'monthly_rate' => rand(1, 4) / 100,
-            );
-        }
+//        $cases = array();
+//
+//        for ($i = 0; $i < 10; $i++) {
+//            $cases[] = array(
+//                'id' => $i,
+//                'icon' => '/images/web/cases1.png',
+//                'title' => '闪电借贷' .rand(10, 99),
+//                'loan_num' => rand(100, 999),// 放款人数
+//                'loan_limit' => rand(100, 200) . '-' . rand(300, 400) . '元',
+//                'deadline' => rand(1,3) . '-' . rand(4,6) . '月',
+//                'monthly_rate' => rand(1, 4) / 100,
+//            );
+//        }
 
         $data = array(
             'cases' => $cases

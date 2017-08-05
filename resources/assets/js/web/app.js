@@ -22,8 +22,9 @@ let app = new Vue({
             },
             tabbarSelected: null,
             showLoginDialog: false,
-            showTabBar: true,
+            showTabBar: null,
             router: null,
+            tabbarHeight: '55px',
         };
     },
     watch: {
@@ -40,6 +41,13 @@ let app = new Vue({
             if (this.tabbars[tabbarId]) {
                 this.tabbarSelected = this.tabbars[tabbarId].id;
             }
+        },
+        showTabBar(val) {
+            if (val) {
+                document.body.style.paddingBottom = this.tabbarHeight;
+            } else {
+                document.body.style.paddingBottom = 0;
+            }
         }
     },
     compoments: [style],
@@ -51,8 +59,11 @@ let app = new Vue({
         }
         if (typeof this.$route.meta.showTabBar !== 'undefined') {
             this.showTabBar = !!this.$route.meta.showTabBar;
+        } else {
+            this.showTabBar = true;
         }
-        document.body.style.paddingBottom = this.$refs.tabbar.$el.clientHeight + 'px';
+
+        // this.tabbarHeight = this.$refs.tabbar.$el.clientHeight + 'px';
     }
 });
 

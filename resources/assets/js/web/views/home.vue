@@ -78,11 +78,14 @@
                             <span class="mint-cell-text">用款日期</span>
                         </div>
                         <div class="mint-cell-value">
-                            <p class="mint-field-core">{{form.useLoanTime}}</p>
+                            <p class="mint-field-core">
+                                {{form.useLoanTime}}
+                            </p>
                         </div>
                     </div>
-                    <mt-datetime-picker ref="picker" v-model="form.useLoanTime" type="date"></mt-datetime-picker>
                 </a>
+
+                <popup-date-picker :show.sync="option.showUseLoanTime"></popup-date-picker>
 
                 <a class="mint-cell mint-field">
                     <div class="mint-cell-wrapper">
@@ -122,17 +125,20 @@
         </div>
 
         <div class="page-part page-offset">
-            <mt-button type="primary" size="large" @click="">快速分析</mt-button>
+            <mt-button class="btn-primary" size="large" @click="handleParse">快速分析</mt-button>
         </div>
     </div>
 </template>
 
 <script>
-    let date = require('element-ui/lib/utils/date');
     import Vue from 'vue';
     import ChoiceBox from './compoments/choice-box.vue';
+    import PopupDatePicker from './compoments/popup-date-picker.vue';
 
     Vue.component('choice-box', ChoiceBox);
+    Vue.component('popup-date-picker', PopupDatePicker);
+
+    let date = new Date();
 
     export default {
         data() {
@@ -146,24 +152,51 @@
                     job: '',
                     moreInfo: []
                 },
+                option:{
+                    showUseLoanTime: false,
+                    useLoanTime: [
+                        {
+                            flex: 1,
+                            values: [date.getFullYear(), date.getFullYear() + 1],
+                            textAlign: 'right'
+                        }, {
+                            divider: true,
+                            content: '-',
+                        }, {
+                            flex: 1,
+                            values: ['2016-01', '2016-02', '2016-03', '2016-04', '2016-05', '2016-06'],
+                            textAlign: 'left'
+                        }
+                    ]
+                },
+                slots: [
+                    {
+                        flex: 1,
+                        values: ['2015-01', '2015-02', '2015-03', '2015-04', '2015-05', '2015-06'],
+                        className: 'slot1',
+                        textAlign: 'right'
+                    }, {
+                        divider: true,
+                        content: '-',
+                        className: 'slot2'
+                    }, {
+                        flex: 1,
+                        values: ['2015-01', '2015-02', '2015-03', '2015-04', '2015-05', '2015-06'],
+                        className: 'slot3',
+                        textAlign: 'left'
+                    }
+                ]
             };
         },
         methods:{
             openPicker(){
-                this.$refs.picker.open();
+                this.option.showUseLoanTime = true;
             },
-            format(dateObj, mask) {
-                return date.format(dateObj, mask);
+            handleParse() {
+                this.$router.push('/loan/cases');
             }
         },
         watch:{
-            'form.useLoanTime'(param) {
-                let _t = null;
-                _t = ((_t = typeof (param)) === 'object' ? Object.prototype.toString.call(param).slice(8, -1) : _t);
-                if (_t === 'Date') {
-                    this.form.useLoanTime = date.format(param, 'yyyy-mm-dd');
-                }
-            }
         },
         mounted() {
         }
