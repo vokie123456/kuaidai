@@ -70,10 +70,24 @@
                 <mt-field label="身份证号" v-model="form.id_card" placeholder="请输入身份证号"></mt-field>
                 <mt-field label="借款金额" v-model="form.loan_amount">元</mt-field>
 
-                <mt-field label="借款期限" v-model="form.loan_deadline">天</mt-field>
-
+                <!-- TODO 自定义Picker -->
                 <a class="mint-cell mint-field">
-                    <div class="mint-cell-wrapper" @click="openPicker">
+                    <div class="mint-cell-wrapper" @click="alert('弹出Picker');">
+                        <div class="mint-cell-title">
+                            <span class="mint-cell-text">借款期限</span>
+                        </div>
+                        <div class="mint-cell-value">
+                            <p class="mint-field-core">
+                                {{form.loan_deadline}}
+                            </p>
+                            <div class="mint-field-other">{{form.loan_deadline_type}}</div>
+                        </div>
+                    </div>
+                </a>
+
+                <!-- TODO 自定义Picker -->
+                <a class="mint-cell mint-field">
+                    <div class="mint-cell-wrapper" @click="alert('弹出Picker');">
                         <div class="mint-cell-title">
                             <span class="mint-cell-text">用款日期</span>
                         </div>
@@ -84,8 +98,6 @@
                         </div>
                     </div>
                 </a>
-
-                <popup-date-picker :show.sync="option.showuse_loan_time"></popup-date-picker>
 
                 <a class="mint-cell mint-field">
                     <div class="mint-cell-wrapper">
@@ -110,15 +122,15 @@
                 </a>
 
                 <div class="choice-box-group">
-                    <choice-box v-model="form.moreInfo" value="a" :multiple="true">有信用卡</choice-box>
-                    <choice-box v-model="form.moreInfo" value="b" :multiple="true">淘宝账号</choice-box>
-                    <choice-box v-model="form.moreInfo" value="c" :multiple="true">芝麻分高</choice-box>
+                    <choice-box v-model="form.more_info" value="a" :multiple="true">有信用卡</choice-box>
+                    <choice-box v-model="form.more_info" value="b" :multiple="true">淘宝账号</choice-box>
+                    <choice-box v-model="form.more_info" value="c" :multiple="true">芝麻分高</choice-box>
                 </div>
 
                 <div class="choice-box-group">
-                    <choice-box v-model="form.moreInfo" value="d" :multiple="true">征信良好</choice-box>
-                    <choice-box v-model="form.moreInfo" value="e" :multiple="true">有公积金</choice-box>
-                    <choice-box v-model="form.moreInfo" value="f" :multiple="true">有社保</choice-box>
+                    <choice-box v-model="form.more_info" value="d" :multiple="true">征信良好</choice-box>
+                    <choice-box v-model="form.more_info" value="e" :multiple="true">有公积金</choice-box>
+                    <choice-box v-model="form.more_info" value="f" :multiple="true">有社保</choice-box>
                 </div>
             </div>
 
@@ -148,26 +160,23 @@
                     id_card: null,
                     loan_amount: null,
                     loan_deadline: null,
-                    loan_deadline_type: null,
+                    loan_deadline_type: '月',
                     use_loan_time: null,
                     job: null,
                     more_info: []
                 },
-                option:{
-                    showuse_loan_time: false,
-                },
             };
         },
         methods:{
-            openPicker(){
-                this.option.showuse_loan_time = true;
-            },
             handleParse() {
                 this.$http.post('/loan/parse', this.form).then(resp => {
                     if (resp.body.code === 0) {
                         this.$router.push('/loan/cases');
                     }
                 });
+            },
+            alert(msg) {
+                window.alert(msg);
             }
         },
         mounted() {
