@@ -287,27 +287,27 @@
                     detail: null,
                 };
 
-                this.productData = {
-                    name: '最优贷',
-                    logo: '/upload/56f5c4ba62a4b631.jpg',
-                    loan_limit_min: 1000,
-                    loan_limit_max: 5000,
-                    deadline_min: 6,
-                    deadline_max: 12,
-                    deadline_type: '月',
-                    rate_min: 0.2,
-                    rate_max: 0.4,
-                    rate_type: '年',
-                    audit_type: 1,
-                    audit_cycle: 72,
-                    loan_time: 12,
-                    loan_give_type: 1,
-                    condition: "条件1\n条件2\n条件3",
-                    extend: [1, 3],
-                    jobs: [1, 2],
-                    process: "流程1\n流程2\n流程N\n流程N1",
-                    detail: '这是详情',
-                };
+//                this.productData = {
+//                    name: '最优贷',
+//                    logo: '/upload/56f5c4ba62a4b631.jpg',
+//                    loan_limit_min: 1000,
+//                    loan_limit_max: 5000,
+//                    deadline_min: 6,
+//                    deadline_max: 12,
+//                    deadline_type: '月',
+//                    rate_min: 0.2,
+//                    rate_max: 0.4,
+//                    rate_type: '年',
+//                    audit_type: 1,
+//                    audit_cycle: 72,
+//                    loan_time: 12,
+//                    loan_give_type: 1,
+//                    condition: "条件1\n条件2\n条件3",
+//                    extend: [1, 3],
+//                    jobs: [1, 2],
+//                    process: "流程1\n流程2\n流程N\n流程N1",
+//                    detail: '这是详情',
+//                };
             },
             handleStore: function() {
                 var self = this;
