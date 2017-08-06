@@ -82,6 +82,8 @@
         position: fixed;
         bottom: 1em;
         width: 100%;
+        background: #fff;
+        padding: 1em;
     }
 
     .desc-cell{
@@ -160,9 +162,7 @@
                 <img src="/images/web/condition.png" class="img-flex" alt="申请条件">
             </div>
 
-            <div class="desc-body">
-                <p v-for="condition in caseInfo.condition">{{condition}}</p>
-            </div>
+            <div class="desc-body" v-html="caseInfo.condition"></div>
         </div>
 
         <div class="desc-cell page-part page-offset">
@@ -188,10 +188,10 @@
             </div>
 
             <div class="desc-body">
-                <p>1、持有中国公民身份证</p>
-                <p>2、20-60周岁</p>
-                <p>3、持有信用卡</p>
-                <p>4、固定收入来源</p>
+                <p><span class="audit-label">审核方式：</span>{{caseInfo.audit_type_label}}</p>
+                <p><span class="audit-label">审核周期：</span>{{caseInfo.audit_cycle}}小时</p>
+                <p><span class="audit-label">放款时间：</span>{{caseInfo.loan_time}}小时</p>
+                <p><span class="audit-label">还款方式：</span>{{caseInfo.loan_give_type_label}}</p>
             </div>
         </div>
 
@@ -201,8 +201,8 @@
             </div>
 
             <div class="desc-body choice-box-group">
-                <template v-for="(remind, index) in caseInfo.remind">
-                    <choice-box >{{remind}}-{{index}}</choice-box>
+                <template v-for="(item, index) in caseInfo._extends">
+                    <choice-box>{{item.label}}</choice-box>
 
                     <div v-if="(index + 1) % 3 == 0" class="clearfix"></div>
                 </template>
@@ -214,9 +214,7 @@
                 <img src="/images/web/detail.png" class="img-flex" alt="详情介绍">
             </div>
 
-            <div class="desc-body">
-                {{caseInfo.detail}}
-            </div>
+            <div class="desc-body" v-html="caseInfo.detail"></div>
         </div>
 
         <div class="fixed-bottom page-offset">
@@ -237,7 +235,7 @@
                 id: null,
                 caseInfo: {
                     audit_instructions: null,
-                    condition: [],
+                    condition: null,
                     deadline_max: null,
                     deadline_min: null,
                     deadline_type: null,

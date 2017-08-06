@@ -1,12 +1,5 @@
 <?php
 
-Route::get('test', function(\Illuminate\Http\Response $response) {
-    $qrCode = qrCode('test', 100);
-    $response->header('Content-Type', $qrCode->getContentType());
-    $response->setContent($qrCode->writeString());
-    return $response;
-});
-
 Route::group(['namespace' => 'Admin'], function() {
 
     // 登录登出
@@ -27,6 +20,14 @@ Route::group(['namespace' => 'Admin'], function() {
         // 修改密码
         Route::get('modify-password', 'AuthController@modifyPasswordForm')->name('modify-password');
         Route::post('modify-password', 'AuthController@modifyPassword')->name('modify-password');
+
+        // 贷款
+        Route::group(['prefix' => 'loan'], function() {
+            Route::put('product/status/{id}', 'Loan\ProductController@status');
+            Route::post('product/uploadLogo', 'Loan\ProductController@uploadLogo');
+            Route::put('product/recommend/{id}', 'Loan\ProductController@recommend');
+            Route::resource('product', 'Loan\ProductController');
+        });
 
         // 文章管理
 //        Route::patch('article-manage/article/up/{id}', 'ArticleManage\ArticleController@up');

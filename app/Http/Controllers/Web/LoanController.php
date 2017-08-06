@@ -7,7 +7,7 @@ use App\Components\ErrorCode;
 use App\Http\Controllers\Controller;
 use App\Models\LoanInfoExtend;
 use App\Models\LoanInfoForm;
-use App\Models\LoanProducts;
+use App\Models\LoanProduct;
 use Auth;
 use Closure;
 use DB;
@@ -131,10 +131,10 @@ class LoanController extends Controller
 
     /**
      * 借贷方案
-     * @param LoanProducts $products
+     * @param LoanProduct $products
      * @return ApiResponse
      */
-    public function cases(LoanProducts $products)
+    public function cases(LoanProduct $products)
     {
         // 获取用户信息
         $userId = $this->auth->user()->getAuthIdentifier();
@@ -162,17 +162,16 @@ class LoanController extends Controller
      */
     public function case($id)
     {
-        $case = LoanProducts::find($id);
+        $case = LoanProduct::with('_extends')->find($id);
 
         if (empty($case)) {
             return ApiResponse::buildFail(ErrorCode::ERR_PARAM[0], '方案不存在！');
         }
 
         $case = $case->toArray();
-        $case['condition'] = explode("\n", $case['condition']);
         $case['process'] = explode("\n", $case['process']);
-        $case['remind'] = explode("\n", $case['remind']);
         $case['detail'] = str_replace("\n", '<br>', $case['detail']);
+        $case['condition'] = str_replace("\n", '<br>', $case['condition']);
 
         $data = array(
             'id' => $id,

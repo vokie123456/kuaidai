@@ -22,7 +22,7 @@ class AuthController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('guest', array(
+        $this->middleware('guest:admin', array(
             'except' => [
                 'logout',
                 'modifyPasswordForm',

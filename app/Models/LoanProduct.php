@@ -4,16 +4,32 @@ namespace App\Models;
 
 use DB;
 use Eloquent;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
  * @property LoanProductJob|\Illuminate\Database\Eloquent\Collection jobs
  * @property LoanProductExtend|\Illuminate\Database\Eloquent\Collection _extends
+ * @property int status
+ * @property int recommend
+ * @property int audit_type
+ * @property int loan_give_type
+ * @property int id
  */
-class LoanProducts extends Eloquent
+class LoanProduct extends Eloquent
 {
+
+    use SoftDeletes;
 
     /** 状态-启用 */
     const STATUS_ENABLED = 1;
+
+    protected $fillable = [
+        'name', 'logo', 'loan_limit_min', 'loan_limit_max', 'deadline_min', 'deadline_max', 'deadline_type', 'rate_min', 'rate_max', 'rate_type', 'audit_type', 'audit_cycle', 'loan_time', 'loan_give_type', 'condition', 'process', 'detail'
+    ];
+
+    protected $appends = [
+        'audit_type_label', 'loan_give_type_label'
+    ];
 
     /**
      * 关联职业信息
@@ -103,4 +119,33 @@ class LoanProducts extends Eloquent
 
         return $cases;
     }
+
+    /**
+     * 放款方式
+     * @return string
+     */
+    public function getAuditTypeLabelAttribute()
+    {
+        static $labels = null;
+        if (empty($labels)) {
+            $labels = array_column(config('loan.auditTypes'), 'label', 'value');
+        }
+
+        return isset($labels[$this->audit_type]) ? $labels[$this->audit_type] : '';
+    }
+
+    /**
+     * 还款类型
+     * @return string
+     */
+    public function getLoanGiveTypeLabelAttribute()
+    {
+        static $labels = null;
+        if (empty($labels)) {
+            $labels = array_column(config('loan.loanGiveType'), 'label', 'value');
+        }
+
+        return isset($labels[$this->loan_give_type]) ? $labels[$this->loan_give_type] : '';
+    }
+
 }
