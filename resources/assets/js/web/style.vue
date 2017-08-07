@@ -115,4 +115,12 @@
         font-size:1em;
     }
 
+    // Loading层zIndex
+    .mint-indicator-mask{
+        z-index: 2999;
+    }
+    .mint-indicator-wrapper{
+        z-index: 3000;
+    }
+
 </style>
