@@ -51,6 +51,8 @@ let routes = [
     { path: '/loan/cases', component: require('./views/loan/cases.vue'), meta: {title: '借贷方案', showTabBar: false} },
     { path: '/loan/case/:id', component: require('./views/loan/case.vue'), meta: {title: '借贷方案', showTabBar: false} },
 
+    { path: '/test', component: require('./views/picker_demo.vue'), meta: {title: '借贷方案', showTabBar: false} },
+
     // 默认跳首页
     { path: '*', redirect: {path: '/home'} },
 ];
