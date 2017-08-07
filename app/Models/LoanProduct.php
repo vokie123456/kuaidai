@@ -24,7 +24,7 @@ class LoanProduct extends Eloquent
     const STATUS_ENABLED = 1;
 
     protected $fillable = [
-        'name', 'logo', 'loan_limit_min', 'loan_limit_max', 'deadline_min', 'deadline_max', 'deadline_type', 'rate_min', 'rate_max', 'rate_type', 'audit_type', 'audit_cycle', 'loan_time', 'loan_give_type', 'condition', 'process', 'detail'
+        'name', 'go_url', 'logo', 'loan_limit_min', 'loan_limit_max', 'deadline_min', 'deadline_max', 'deadline_type', 'rate_min', 'rate_max', 'rate_type', 'audit_type', 'audit_cycle', 'loan_time', 'loan_give_type', 'condition', 'process', 'detail'
     ];
 
     protected $appends = [

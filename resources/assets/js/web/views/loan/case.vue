@@ -2,7 +2,7 @@
     @import "../../less/vars";
 
     #loan-case {
-        padding-bottom: 4em;
+        padding-bottom: 4.5em;
 
         .case-header{
             background: @mainColor;
@@ -80,7 +80,7 @@
 
     .fixed-bottom{
         position: fixed;
-        bottom: 1em;
+        bottom: 0;
         width: 100%;
         background: #fff;
         padding: 1em;
@@ -218,7 +218,7 @@
         </div>
 
         <div class="fixed-bottom page-offset">
-            <mt-button class="btn-primary" size="large" @click="">立即申请</mt-button>
+            <mt-button class="btn-primary" size="large" @click="goUrl">立即申请</mt-button>
         </div>
     </div>
 </template>
@@ -242,11 +242,12 @@
                     detail: null,
                     loan_limit_max: null,
                     loan_limit_min: null,
-                    loaneders:null,
+                    loaneders: null,
                     logo: null,
                     name: null,
                     rate_max: null,
                     rate_min: null,
+                    go_url: '',
                 },
             };
         },
@@ -258,6 +259,9 @@
                         self.caseInfo = resp.body.data.case;
                     }
                 });
+            },
+            goUrl() {
+                window.location.href = this.caseInfo.go_url;
             }
         },
         mounted() {

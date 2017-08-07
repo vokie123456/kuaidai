@@ -63,6 +63,10 @@
                     <el-input v-model="productData.name"></el-input>
                 </el-form-item>
 
+                <el-form-item label="跳转URL">
+                    <el-input v-model="productData.go_url"></el-input>
+                </el-form-item>
+
                 <el-form-item label="Logo">
                     <el-col :span="8">
                         <el-upload action="/loan/product/uploadLogo" :show-file-list="false" :http-request="handleUpload" :data="{option: 'create'}" name="logo">
@@ -267,6 +271,7 @@
                 this.dialogProductVisible = true;
                 this.productData = {
                     name: null,
+                    go_Url: null,
                     logo: null,
                     loan_limit_min: null,
                     loan_limit_max: null,

@@ -1,65 +1,43 @@
 <style lang="less">
     @import "../less/vars.less";
-    .el-dialog__body{
-        padding-left: 0;
-        padding-right: 0;
-    }
-    .el-form-item{
-        background: #fff;
-        border-bottom: 1px solid #f4f4f4;
-        margin-bottom: 0;
-
-        &:last-child{
-            border-bottom: 0;
+    #login{
+        .login-dialog {
+            width: 90%;
         }
 
-        .el-input__inner{
-            border: 0;
+        .mint-field .mint-cell-title{
+            width: 4em;
         }
-    }
-    .captcha{
-        width: 100%;
-        color: @mainColor;
-    }
-    .btn-login{
-        background-color: @mainColor;
-        color: #fff;
-        width: 100%;
-    }
-    .agreement{
-        margin-top: 5px;
 
-        p {
-            text-align: center;
-            color: #999;
-            font-size: 12px;
-
-            a{
-                color: @mainColor;
-                text-decoration: none;
-            }
+        .mint-cell-wrapper{
+            background-size: 100% 1px;
+            background-position: bottom left;
         }
     }
 </style>
 
 <template>
-    <div>
-        <el-dialog :visible.sync="isShow" size="large" :close-on-click-modal="false" :close-on-press-escape="false">
-            <mt-field placeholder="请输入您的手机号" v-model="form.mobile"></mt-field>
-            <mt-field placeholder="请输入验证码" v-model="form.captcha">
-                <mt-button @click="handleCaptcha" :disabled="form.mobile.length != 11 || !canGetCaptcha">{{captchaText}}</mt-button>
+    <div id="login">
+        <mt-popup v-model="isShow" class="login-dialog" :closeOnClickModal="false">
+            <div class="page-part">&nbsp;</div>
+
+            <mt-field label="手机号" placeholder="请输入您的手机号" type="tel" v-model="form.mobile"></mt-field>
+
+            <mt-field label="验证码" v-model="form.captcha">
+                <mt-button @click="handleCaptcha" size="small" :disabled="form.mobile.length != 11 || !canGetCaptcha">{{captchaText}}</mt-button>
             </mt-field>
-            <mt-button type="primary" size="large" @click="handleLogin">登录</mt-button>
-        </el-dialog>
+
+            <div class="page-part">&nbsp;</div>
+
+            <div class="page-part page-offset">
+                <mt-button class="btn-primary" size="large" @click="handleLogin">登录</mt-button>
+            </div>
+        </mt-popup>
     </div>
 </template>
 
 <script>
     import Vue from 'vue';
-    import { Dialog } from 'element-ui';
-    import 'element-ui/lib/theme-default/dialog.css';
-    import 'element-ui/lib/theme-default/icon.css';
-    Vue.use(Dialog);
 
     export default {
         data() {

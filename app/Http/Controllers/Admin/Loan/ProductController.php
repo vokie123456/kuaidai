@@ -46,6 +46,7 @@ class ProductController extends Controller
     {
         $this->validate($request, array(
             'name' => ['required', 'between:1,100'],
+            'go_url' => ['required', 'between:1,255', 'url'],
             'logo' => ['required'],
             'loan_limit_min' => ['required', 'numeric', 'min:1', 'max:99999999'],
             'loan_limit_max' => ['required', 'numeric', 'min:1', 'max:99999999'],
@@ -68,7 +69,7 @@ class ProductController extends Controller
         ));
 
         $data = $request->only([
-            'name', 'logo', 'loan_limit_min', 'loan_limit_max', 'deadline_min', 'deadline_max', 'deadline_type', 'rate_min', 'rate_max', 'rate_type', 'audit_type', 'audit_cycle', 'loan_time', 'loan_give_type', 'condition', 'process', 'detail'
+            'name', 'go_url', 'logo', 'loan_limit_min', 'loan_limit_max', 'deadline_min', 'deadline_max', 'deadline_type', 'rate_min', 'rate_max', 'rate_type', 'audit_type', 'audit_cycle', 'loan_time', 'loan_give_type', 'condition', 'process', 'detail'
         ]);
         $data['condition'] = str_replace(["\r", "\r\n"], "\n", $data['condition']);
         $data['process'] = str_replace(["\r", "\r\n"], "\n", $data['process']);
@@ -172,10 +173,18 @@ class ProductController extends Controller
         return ApiResponse::buildSuccess($model);
     }
 
+    /**
+     * 更新
+     * @param Request $request
+     * @param $id
+     * @return ApiResponse
+     * @throws \Exception
+     */
     public function update(Request $request, $id)
     {
         $this->validate($request, array(
             'name' => ['required', 'between:1,100'],
+            'go_url' => ['required', 'between:1,255', 'url'],
             'logo' => ['required'],
             'loan_limit_min' => ['required', 'numeric', 'min:1', 'max:99999999'],
             'loan_limit_max' => ['required', 'numeric', 'min:1', 'max:99999999'],
@@ -200,7 +209,7 @@ class ProductController extends Controller
         /** @var LoanProduct $model */
         $model = LoanProduct::findOrFail($id);
         $data = $request->only([
-            'name', 'logo', 'loan_limit_min', 'loan_limit_max', 'deadline_min', 'deadline_max', 'deadline_type', 'rate_min', 'rate_max', 'rate_type', 'audit_type', 'audit_cycle', 'loan_time', 'loan_give_type', 'condition', 'process', 'detail'
+            'name', 'go_url', 'logo', 'loan_limit_min', 'loan_limit_max', 'deadline_min', 'deadline_max', 'deadline_type', 'rate_min', 'rate_max', 'rate_type', 'audit_type', 'audit_cycle', 'loan_time', 'loan_give_type', 'condition', 'process', 'detail'
         ]);
         $data['condition'] = str_replace(["\r", "\r\n"], "\n", $data['condition']);
         $data['process'] = str_replace(["\r", "\r\n"], "\n", $data['process']);
