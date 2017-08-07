@@ -13,13 +13,32 @@
             background-size: 100% 1px;
             background-position: bottom left;
         }
+
+        .login-header {
+            &:before,
+            &:after{
+                content: ' ';
+                clear: both;
+                display: block;
+            }
+
+            .icon-close{
+                color: #aaa;
+                float: right;
+                margin-right: 0.5em;
+                font-size: 1.3em;
+                margin-top: 0.5em;
+            }
+        }
     }
 </style>
 
 <template>
     <div id="login">
         <mt-popup v-model="isShow" class="login-dialog" :closeOnClickModal="false">
-            <div class="page-part">&nbsp;</div>
+            <div class="page-part login-header">
+                <i class="mintui mintui-field-error icon-close" @click="isShow = false"></i>
+            </div>
 
             <mt-field label="手机号" placeholder="请输入您的手机号" type="tel" v-model="form.mobile"></mt-field>
 
