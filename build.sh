@@ -57,8 +57,12 @@ ls -t | grep "${projectName}" | awk 'NR>5 {system("rm -rf \"" $0 "\"")}'
 echo "进入项目目录，执行后置操作"
 cd ${deployPath}
 
+# 修改目录权限
 chmod -R 777 ./storage
 chmod -R 777 ./bootstrap/cache
+
+# 重新链接上传目录
+ln -s /home/upload ./public/upload
 
 /usr/local/php/bin/php artisan optimize --force
 /usr/local/php/bin/php artisan config:cache
