@@ -46,6 +46,13 @@
                 }
             }
         }
+
+        .picker-large{
+            width: 100%;
+            .picker-toolbar {
+                border-bottom: solid 1px #eaeaea;
+            }
+        }
     }
 
 </style>
@@ -70,9 +77,8 @@
                 <mt-field label="身份证号" v-model="form.id_card" placeholder="请输入身份证号"></mt-field>
                 <mt-field label="借款金额" v-model="form.loan_amount">元</mt-field>
 
-                <!-- TODO 自定义Picker -->
                 <a class="mint-cell mint-field">
-                    <div class="mint-cell-wrapper" @click="alert('弹出Picker');">
+                    <div class="mint-cell-wrapper" @click="handleOpenLoanDeadline">
                         <div class="mint-cell-title">
                             <span class="mint-cell-text">借款期限</span>
                         </div>
@@ -85,9 +91,15 @@
                     </div>
                 </a>
 
-                <!-- TODO 自定义Picker -->
+                <mt-popup v-model="picker.isShowLoanDeadline" position="bottom" class="picker-large">
+                    <mt-picker :slots="picker.slotsLoanDeadline" @change="handleLoanDeadlineChange" :visible-item-count="5" :show-toolbar="true">
+                        <span class="mint-datetime-action mint-datetime-cancel" @click="picker.isShowLoanDeadline = false;">取消</span>
+                        <span class="mint-datetime-action mint-datetime-confirm" @click="handleConLoanDeadlineConfirm">确定</span>
+                    </mt-picker>
+                </mt-popup>
+
                 <a class="mint-cell mint-field">
-                    <div class="mint-cell-wrapper" @click="alert('弹出Picker');">
+                    <div class="mint-cell-wrapper" @click="handleOpenUseLoanTime">
                         <div class="mint-cell-title">
                             <span class="mint-cell-text">用款日期</span>
                         </div>
@@ -97,6 +109,17 @@
                             </p>
                         </div>
                     </div>
+
+                    <mt-datetime-picker
+                            ref="pickerUseLoanTime"
+                            type="date"
+                            @confirm="handleUseLoanTimeChange"
+                            :startDate="picker.startDateUseLoanTime"
+                            :endDate="picker.endDateUseLoanTime"
+                            year-format="{value} 年"
+                            month-format="{value} 月"
+                            date-format="{value} 日">
+                    </mt-datetime-picker>
                 </a>
 
                 <a class="mint-cell mint-field">
@@ -108,9 +131,7 @@
                 </a>
 
                 <div class="choice-box-group">
-                    <choice-box v-model="form.job" value="1">上班族</choice-box>
-                    <choice-box v-model="form.job" value="2">做生意</choice-box>
-                    <choice-box v-model="form.job" value="3">学生党</choice-box>
+                    <choice-box v-for="item in globalData.jobs" v-model="form.job" :value="item.value">{{item.label}}</choice-box>
                 </div>
 
                 <a class="mint-cell mint-field">
@@ -121,17 +142,16 @@
                     </div>
                 </a>
 
-                <div class="choice-box-group">
-                    <choice-box v-model="form.more_info" value="a" :multiple="true">有信用卡</choice-box>
-                    <choice-box v-model="form.more_info" value="b" :multiple="true">淘宝账号</choice-box>
-                    <choice-box v-model="form.more_info" value="c" :multiple="true">芝麻分高</choice-box>
-                </div>
+                <template v-for="(item, index) in globalData.extend">
+                    <template v-if="index % 3 == 0">
+                        <div class="choice-box-group">
+                            <choice-box v-model="form.more_info" :value="globalData.extend[index+0].value" :multiple="true">{{globalData.extend[index+0].label}}</choice-box>
+                            <choice-box v-model="form.more_info" :value="globalData.extend[index+1].value" :multiple="true">{{globalData.extend[index+1].label}}</choice-box>
+                            <choice-box v-model="form.more_info" :value="globalData.extend[index+2].value" :multiple="true">{{globalData.extend[index+2].label}}</choice-box>
+                        </div>
+                    </template>
+                </template>
 
-                <div class="choice-box-group">
-                    <choice-box v-model="form.more_info" value="d" :multiple="true">征信良好</choice-box>
-                    <choice-box v-model="form.more_info" value="e" :multiple="true">有公积金</choice-box>
-                    <choice-box v-model="form.more_info" value="f" :multiple="true">有社保</choice-box>
-                </div>
             </div>
 
         </div>
@@ -145,12 +165,32 @@
 <script>
     import Vue from 'vue';
     import ChoiceBox from './compoments/choice-box.vue';
-    import PopupDatePicker from './compoments/popup-date-picker.vue';
+    import DateUtil from 'element-ui/lib/utils/date';
 
     Vue.component('choice-box', ChoiceBox);
-    Vue.component('popup-date-picker', PopupDatePicker);
 
-    let date = new Date();
+    let now = new Date();
+    let nextYear = new Date();
+    nextYear.setFullYear(now.getFullYear() + 1);
+
+    let arr = [];
+    for (let i = 1; i <= 36; i++) {
+        arr.push(i);
+    }
+    let slotsLoanDeadline = [
+        {
+            flex: 1,
+            defaultIndex: 0,
+            values: arr,
+        }, {
+            divider: true,
+            content: '-',
+        }, {
+            flex: 1,
+            defaultIndex: 0,
+            values: ['年', '月', '日'],
+        }
+    ];
 
     export default {
         data() {
@@ -160,11 +200,22 @@
                     id_card: null,
                     loan_amount: null,
                     loan_deadline: null,
-                    loan_deadline_type: '月',
+                    loan_deadline_type: null,
                     use_loan_time: null,
                     job: null,
                     more_info: []
                 },
+                picker: {
+                    isShowUseLoanTime: false,
+                    modelUseLoanTime: null,
+                    startDateUseLoanTime: now,
+                    endDateUseLoanTime: nextYear,
+
+                    isShowLoanDeadline: false,
+                    modelLoanDeadline: null,
+                    slotsLoanDeadline: slotsLoanDeadline,
+                },
+                globalData: {},
             };
         },
         methods:{
@@ -175,21 +226,54 @@
                     }
                 });
             },
-            alert(msg) {
-                window.alert(msg);
-            }
+            handleUseLoanTimeChange(value) {
+                this.form.use_loan_time = DateUtil.format(value, 'yyyy-MM-dd');
+            },
+            handleLoanDeadlineChange(picker, values) {
+                this.picker.modelLoanDeadline = values;
+            },
+            handleConLoanDeadlineConfirm() {
+                this.form.loan_deadline = this.picker.modelLoanDeadline[0];
+                this.form.loan_deadline_type = this.picker.modelLoanDeadline[1];
+                this.picker.isShowLoanDeadline = false;
+            },
+            handleOpenLoanDeadline() {
+                this.picker.isShowLoanDeadline = true;
+                this.afterOpenPicker();
+            },
+            handleOpenUseLoanTime() {
+                this.$refs.pickerUseLoanTime.open();
+                this.afterOpenPicker();
+            },
+            afterOpenPicker() {
+                window.addEventListener('touchmove', this.moveHandler, false);
+                window.addEventListener('touch', this.touchHandler, false);
+                window.addEventListener('click', this.touchHandler, false);
+            },
+            moveHandler() {
+                event.preventDefault();
+                event.stopPropagation();
+            },
+            touchHandler() {
+                if (event.target.className.includes('mint-datetime-cancel')
+                    || event.target.className.includes('mint-datetime-confirm')
+                    || event.target.className.includes('v-modal')
+                ) {
+                    window.removeEventListener('touchmove', this.moveHandler, false);
+                    window.removeEventListener('touch', this.touchHandler, false);
+                    window.removeEventListener('click', this.touchHandler, false);
+                }
+            },
         },
         mounted() {
-//            this.form = {
-//                name: '林博',
-//                id_card: '123456789123456789',
-//                loan_amount: 100,
-//                loan_deadline: 12,
-//                loan_deadline_type: '月',
-//                use_loan_time: '2017-12-01',
-//                job: 1,
-//                more_info: [3,4,5]
-//            };
+            this.picker.slotsLoanDeadline[0].defaultIndex = 5;
+            this.picker.slotsLoanDeadline[2].defaultIndex = 1;
+
+
+            let config = JSON.parse(document.querySelector('#global').innerText);
+            if (config) {
+                this.globalData = config;
+            }
         }
     }
 </script>

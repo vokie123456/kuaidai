@@ -15,7 +15,7 @@ let app = new Vue({
     router,
     data() {
         return {
-            appName: '借贷专家',
+            appName: '',
             tabbars: {
                 home: {id: 'home', name: '借贷', icon: null, active: 'tabbar-jiedai-1.png', unactive: 'tabbar-jiedai-2.png', },
                 xinyongka: {id: 'xinyongka', name: '信用卡', icon: null, active: 'tabbar-xinyongka-1.png', unactive: 'tabbar-xinyongka-2.png', },
@@ -62,6 +62,11 @@ let app = new Vue({
             this.showTabBar = !!this.$route.meta.showTabBar;
         } else {
             this.showTabBar = true;
+        }
+
+        let config = JSON.parse(document.querySelector('#global').innerText);
+        if (config) {
+            this.appName = config.appName;
         }
     }
 });

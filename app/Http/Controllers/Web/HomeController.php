@@ -12,7 +12,14 @@ class HomeController extends Controller
 
     public function index()
     {
-        return view('web.index');
+        $data = array(
+            'global' => array(
+                'appName' => config('app.name'),
+                'extend' => config('loan.extend'),
+                'jobs' => config('loan.jobs'),
+            )
+        );
+        return view('web.index', $data);
     }
 
 }
