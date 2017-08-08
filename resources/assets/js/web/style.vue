@@ -123,4 +123,13 @@
         z-index: 3000;
     }
 
+    // 底栏图标样式
+    .mint-tab-item-icon{
+        width: 1.8em;
+        height: 1.8em;
+    }
+    .mint-tabbar > .mint-tab-item.is-selected{
+        color: @mainColor;
+    }
+
 </style>

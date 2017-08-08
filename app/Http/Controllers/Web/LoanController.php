@@ -169,9 +169,10 @@ class LoanController extends Controller
         }
 
         $case = $case->toArray();
-        $case['process'] = explode("\n", $case['process']);
-        $case['detail'] = str_replace("\n", '<br>', $case['detail']);
-        $case['condition'] = str_replace("\n", '<br>', $case['condition']);
+        $case['process'] = $case['process'] ? explode("\n", $case['process']) : null;
+        $case['detail'] = $case['detail'] ? str_replace("\n", '<br>', $case['detail']) : null;
+        $case['condition'] = $case['condition'] ? str_replace("\n", '<br>', $case['condition']) : null;
+        $case['_extends'] = $case['_extends'] ? $case['_extends'] : null;
 
         $data = array(
             'id' => $id,

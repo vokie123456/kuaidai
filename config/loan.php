@@ -18,7 +18,7 @@ return array(
         array('label' => '有公积金', 'value' => 6),
     ),
     'jobs' => array(
-        array('label' => '企业主', 'value' => 1),
+        array('label' => '做生意', 'value' => 1),
         array('label' => '上班族', 'value' => 2),
         array('label' => '学生党', 'value' => 3),
     ),

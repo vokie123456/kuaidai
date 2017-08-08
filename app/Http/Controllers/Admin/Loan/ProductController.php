@@ -57,15 +57,15 @@ class ProductController extends Controller
             'rate_max' => ['required', 'numeric', 'max:99'],
             'rate_type' => ['required'],
             'audit_type' => ['required'],
-            'audit_cycle' => ['required', 'integer'],
-            'loan_time' => ['required', 'integer'],
+            'audit_cycle' => ['required', 'numeric'],
+            'loan_time' => ['required', 'numeric'],
             'loan_give_type' => ['required'],
-            'condition' => ['required', 'between:1,1000'],
-            'process' => ['required', 'between:1,1000'],
-            'detail' => ['required', 'between:1,1000'],
+            'condition' => ['between:0,1000'],
+            'process' => ['between:0,1000'],
+            'detail' => ['between:0,1000'],
 
-            'extend' => ['required', 'array'],
-            'jobs' => ['required', 'array'],
+            'extend' => ['array'],
+            'jobs' => ['array'],
         ));
 
         $data = $request->only([
@@ -76,14 +76,14 @@ class ProductController extends Controller
         $data['detail'] = str_replace(["\r", "\r\n"], "\n", $data['detail']);
 
         $extends = [];
-        foreach ($request->input('extend') as $extend) {
+        foreach ((array)$request->input('extend') as $extend) {
             $extends[] = new LoanProductExtend(array(
                 'extend' => $extend
             ));
         }
 
         $jobs = [];
-        foreach ($request->input('jobs') as $job) {
+        foreach ((array)$request->input('jobs') as $job) {
             $jobs[] = new LoanProductJob(array(
                 'job' => $job
             ));
@@ -195,15 +195,15 @@ class ProductController extends Controller
             'rate_max' => ['required', 'numeric', 'max:99'],
             'rate_type' => ['required'],
             'audit_type' => ['required'],
-            'audit_cycle' => ['required', 'integer'],
-            'loan_time' => ['required', 'integer'],
+            'audit_cycle' => ['required', 'numeric'],
+            'loan_time' => ['required', 'numeric'],
             'loan_give_type' => ['required'],
-            'condition' => ['required', 'between:1,1000'],
-            'process' => ['required', 'between:1,1000'],
-            'detail' => ['required', 'between:1,1000'],
+            'condition' => ['between:0,1000'],
+            'process' => ['between:0,1000'],
+            'detail' => ['between:0,1000'],
 
-            'extend' => ['required', 'array'],
-            'jobs' => ['required', 'array'],
+            'extend' => ['array'],
+            'jobs' => ['array'],
         ));
 
         /** @var LoanProduct $model */
@@ -216,14 +216,14 @@ class ProductController extends Controller
         $data['detail'] = str_replace(["\r", "\r\n"], "\n", $data['detail']);
 
         $extends = [];
-        foreach ($request->input('extend') as $extend) {
+        foreach ((array)$request->input('extend') as $extend) {
             $extends[] = new LoanProductExtend(array(
                 'extend' => $extend
             ));
         }
 
         $jobs = [];
-        foreach ($request->input('jobs') as $job) {
+        foreach ((array)$request->input('jobs') as $job) {
             $jobs[] = new LoanProductJob(array(
                 'job' => $job
             ));

@@ -157,7 +157,7 @@
             </div>
         </div>
 
-        <div class="desc-cell page-part page-offset">
+        <div class="desc-cell page-part page-offset" v-if="caseInfo.condition">
             <div class="desc-header">
                 <img src="/images/web/condition.png" class="img-flex" alt="申请条件">
             </div>
@@ -165,7 +165,7 @@
             <div class="desc-body" v-html="caseInfo.condition"></div>
         </div>
 
-        <div class="desc-cell page-part page-offset">
+        <div class="desc-cell page-part page-offset" v-if="caseInfo.process">
             <div class="desc-header">
                 <img src="/images/web/process.png" class="img-flex" alt="申请流程">
             </div>
@@ -189,13 +189,13 @@
 
             <div class="desc-body">
                 <p><span class="audit-label">审核方式：</span>{{caseInfo.audit_type_label}}</p>
-                <p><span class="audit-label">审核周期：</span>{{caseInfo.audit_cycle}}小时</p>
-                <p><span class="audit-label">放款时间：</span>{{caseInfo.loan_time}}小时</p>
+                <p><span class="audit-label">审核周期：</span>{{caseInfo.audit_cycle * 1}}小时</p>
+                <p><span class="audit-label">放款时间：</span>{{caseInfo.loan_time * 1}}小时</p>
                 <p><span class="audit-label">还款方式：</span>{{caseInfo.loan_give_type_label}}</p>
             </div>
         </div>
 
-        <div class="desc-cell page-part page-offset">
+        <div class="desc-cell page-part page-offset" v-if="caseInfo._extends">
             <div class="desc-header">
                 <img src="/images/web/remind.png" class="img-flex" alt="关键提醒">
             </div>
@@ -209,7 +209,7 @@
             </div>
         </div>
 
-        <div class="desc-cell page-part page-offset">
+        <div class="desc-cell page-part page-offset" v-if="caseInfo.detail">
             <div class="desc-header">
                 <img src="/images/web/detail.png" class="img-flex" alt="详情介绍">
             </div>
