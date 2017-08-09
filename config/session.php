@@ -29,7 +29,8 @@ return [
     |
     */
 
-    'lifetime' => 120,
+    // session保存1周
+    'lifetime' => 60 * 24 * 7,
 
     'expire_on_close' => false,
 
