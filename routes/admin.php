@@ -21,12 +21,16 @@ Route::group(['namespace' => 'Admin'], function() {
         Route::get('modify-password', 'AuthController@modifyPasswordForm')->name('modify-password');
         Route::post('modify-password', 'AuthController@modifyPassword')->name('modify-password');
 
+        // 用户管理
+        Route::resource('user', 'UserController');
+
         // 贷款
         Route::group(['prefix' => 'loan'], function() {
             Route::put('product/status/{id}', 'Loan\ProductController@status');
             Route::post('product/uploadLogo', 'Loan\ProductController@uploadLogo');
             Route::put('product/recommend/{id}', 'Loan\ProductController@recommend');
             Route::resource('product', 'Loan\ProductController');
+            Route::resource('form', 'Loan\FormController');
         });
 
         // 文章管理

@@ -29,5 +29,13 @@ class LoanInfoForm extends Eloquent
         return $this->hasMany(LoanInfoExtend::class, 'form_id', 'id');
     }
 
+    /**
+     * 关联用户
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function user()
+    {
+        return $this->hasOne(User::class, 'id', 'user_id');
+    }
 
 }
