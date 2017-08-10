@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin\Loan;
 
 use App\Components\ApiResponse;
+use App\Components\Utils;
 use App\Http\Controllers\Controller;
 use App\Models\LoanProduct;
 use App\Models\LoanProductExtend;
@@ -74,6 +75,9 @@ class ProductController extends Controller
         $data['condition'] = str_replace(["\r", "\r\n"], "\n", $data['condition']);
         $data['process'] = str_replace(["\r", "\r\n"], "\n", $data['process']);
         $data['detail'] = str_replace(["\r", "\r\n"], "\n", $data['detail']);
+
+        $data['deadline_max_day'] = Utils::convertLoanDeadline($data['deadline_max'], $data['deadline_type']);
+        $data['deadline_min_day'] = Utils::convertLoanDeadline($data['deadline_min'], $data['deadline_type']);
 
         $extends = [];
         foreach ((array)$request->input('extend') as $extend) {
@@ -214,6 +218,9 @@ class ProductController extends Controller
         $data['condition'] = str_replace(["\r", "\r\n"], "\n", $data['condition']);
         $data['process'] = str_replace(["\r", "\r\n"], "\n", $data['process']);
         $data['detail'] = str_replace(["\r", "\r\n"], "\n", $data['detail']);
+
+        $data['deadline_max_day'] = Utils::convertLoanDeadline($data['deadline_max'], $data['deadline_type']);
+        $data['deadline_min_day'] = Utils::convertLoanDeadline($data['deadline_min'], $data['deadline_type']);
 
         $extends = [];
         foreach ((array)$request->input('extend') as $extend) {

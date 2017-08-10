@@ -17,7 +17,7 @@ class LoanInfoForm extends Eloquent
 {
 
     protected $fillable = [
-        'user_id', 'name', 'id_card', 'loan_amount', 'loan_deadline', 'loan_deadline_type', 'use_loan_time', 'job'
+        'user_id', 'name', 'id_card', 'loan_amount', 'loan_deadline', 'loan_deadline_type', 'loan_deadline_day', 'use_loan_time', 'job'
     ];
 
     /**

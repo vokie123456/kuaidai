@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Web;
 
 use App\Components\ApiResponse;
 use App\Components\ErrorCode;
+use App\Components\Utils;
 use App\Http\Controllers\Controller;
 use App\Models\LoanInfoExtend;
 use App\Models\LoanInfoForm;
@@ -85,6 +86,9 @@ class LoanController extends Controller
         $fields = ['name', 'id_card', 'loan_amount', 'loan_deadline', 'loan_deadline_type', 'use_loan_time', 'job'];
         $data = $request->only($fields);
         $data['user_id'] = $userId;
+
+        // 计算借款期天数
+        $data['loan_deadline_day'] = Utils::convertLoanDeadline($data['loan_deadline'], $data['loan_deadline_type']);
 
         $extends = [];
         if (is_array($request->input('more_info'))) {

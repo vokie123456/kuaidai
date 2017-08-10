@@ -188,7 +188,7 @@
         }, {
             flex: 1,
             defaultIndex: 0,
-            values: ['年', '月', '日'],
+            values: ['月', '日'],
         }
     ];
 

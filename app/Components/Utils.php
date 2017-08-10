@@ -28,4 +28,18 @@ class Utils
         return preg_replace($search, $replace, $subject, $limit);
     }
 
+    /**
+     * 转换代款期限为天数
+     * @param $value
+     * @param $type
+     * @return mixed
+     */
+    public static function convertLoanDeadline($value, $type)
+    {
+        if ($type == '月') {
+            return $value * 30;
+        } else {
+            return $value;
+        }
+    }
 }

@@ -91,7 +91,7 @@
                     <el-col :span="8"><el-input v-model="productData.deadline_max" placeholder="最大期限"></el-input></el-col>
                     <el-col :span="4" :offset="2">
                         <el-select v-model="productData.deadline_type" placeholder="单位">
-                            <el-option value="年">年</el-option>
+                            {{--<el-option value="年">年</el-option>--}}
                             <el-option value="月">月</el-option>
                             <el-option value="日">日</el-option>
                         </el-select>
