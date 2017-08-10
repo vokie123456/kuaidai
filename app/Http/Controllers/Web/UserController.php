@@ -77,4 +77,13 @@ class UserController extends Controller
         return ApiResponse::buildFromArray();
     }
 
+    /**
+     * 退出登录
+     */
+    public function logout()
+    {
+        $this->auth->logout();
+        return ApiResponse::buildFromArray();
+    }
+
 }

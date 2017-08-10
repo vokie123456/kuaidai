@@ -108,7 +108,7 @@
                     <div class="case-footer-item">
                         <img src="/images/icon/coins.png" class="case-loan-icon">
                         <span>额度</span>
-                        <span class="case-weight">{{caseInfo.loan_limit_min*1}}-{{caseInfo.loan_limit_max*1}}元</span>
+                        <span class="case-weight">{{Utils.formatAmount(caseInfo.loan_limit_min)}}-{{Utils.formatAmount(caseInfo.loan_limit_max)}}元</span>
                     </div>
                     <div class="case-footer-item">
                         <img src="/images/icon/dashboard.png" class="case-loan-icon">
@@ -122,9 +122,12 @@
 </template>
 
 <script type="es6">
+    import Utils from '../../utils';
+
     export default {
         data() {
             return {
+                Utils,
                 cases: []
             };
         },

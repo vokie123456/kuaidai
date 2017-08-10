@@ -142,7 +142,7 @@
 
                 <div class="case-footer">
                     <div class="case-footer-item">
-                        <p class="case-weight">{{caseInfo.loan_limit_min*1}}-{{caseInfo.loan_limit_max*1}}元</p>
+                        <p class="case-weight">{{Utils.formatAmount(caseInfo.loan_limit_min)}}-{{Utils.formatAmount(caseInfo.loan_limit_max)}}元</p>
                         <p>额度</p>
                     </div>
                     <div class="case-footer-item">
@@ -226,6 +226,7 @@
 <script type="es6">
     import Vue from 'vue';
     import ChoiceBox from '../compoments/choice-box.vue';
+    import Utils from '../../utils';
 
     Vue.component('choice-box', ChoiceBox);
 
@@ -233,6 +234,7 @@
         data() {
             return {
                 id: null,
+                Utils,
                 caseInfo: {
                     audit_instructions: null,
                     condition: null,

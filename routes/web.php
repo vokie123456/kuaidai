@@ -28,6 +28,9 @@ Route::group(['namespace' => 'Web'], function() {
 
         // 更新个人信息
         Route::post('set-user-info', 'UserController@setUserInfo');
+
+        // 退出登录
+        Route::get('logout', 'UserController@logout');
     });
 
     // 借贷

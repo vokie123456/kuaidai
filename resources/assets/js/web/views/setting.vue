@@ -15,6 +15,10 @@
         <div class="page-part page-offset">
             <mt-button class="btn-primary" size="large" @click="handleSubmit">保存</mt-button>
         </div>
+
+        <div class="page-part page-offset">
+            <mt-button size="large" @click="handleLogout">退出登录</mt-button>
+        </div>
     </div>
 </template>
 
@@ -43,6 +47,12 @@
                 this.$http.post('/user/set-user-info', params).then(() => {
                     alert('修改成功');
                     self.$router.go(-1);
+                });
+            },
+            handleLogout() {
+                let self = this;
+                this.$http.get('/user/logout').then(() => {
+                    self.$router.push({path: '/'});
                 });
             }
         },

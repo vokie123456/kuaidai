@@ -12,7 +12,7 @@ return array(
     'extend' => array(
         array('label' => '信用卡', 'value' => 1),
         array('label' => '淘宝账号', 'value' => 2),
-        array('label' => '芝麻信用分', 'value' => 3),
+        array('label' => '芝麻信用', 'value' => 3),
         array('label' => '征信良好', 'value' => 4),
         array('label' => '有社保', 'value' => 5),
         array('label' => '有公积金', 'value' => 6),
