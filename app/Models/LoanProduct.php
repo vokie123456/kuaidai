@@ -74,9 +74,8 @@ class LoanProduct extends Eloquent
             ->where('loan_limit_max', '>=', $form->loan_amount)
 
             // 代款期限
-            ->where('deadline_type', $form->loan_deadline_type)
-            ->where('deadline_min', '<=', $form->loan_deadline)
-            ->where('deadline_max', '>=', $form->loan_deadline)
+            ->where('deadline_min_day', '<=', $form->loan_deadline_day)
+            ->where('deadline_max_day', '>=', $form->loan_deadline_day)
 
             // 算法：
             // 用款日期 - 当前时间 = 剩余时间；

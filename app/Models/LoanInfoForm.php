@@ -12,6 +12,7 @@ use Eloquent;
  * @property string use_loan_time
  * @property int job
  * @property LoanInfoExtend[]|\Illuminate\Database\Eloquent\Collection _extends
+ * @property int loan_deadline_day
  */
 class LoanInfoForm extends Eloquent
 {
