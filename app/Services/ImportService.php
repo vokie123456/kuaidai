@@ -65,6 +65,7 @@ class ImportService
                     'pid' => 0,
                     'route' => $route,
                     'name' => $name,
+                    'created_at' => date('Y-m-d H:i:s')
                 );
             }
 
@@ -89,6 +90,7 @@ class ImportService
                 'id' => 1,
                 'node' => '公共',
                 'route' => '公共',
+                'created_at' => date('Y-m-d H:i:s')
             ]);
         }
 
@@ -129,7 +131,8 @@ class ImportService
             foreach ($nodes as $route => $node) {
                 $newNodes[] = array(
                     'route' => $route,
-                    'node' => $node
+                    'node' => $node,
+                    'created_at' => date('Y-m-d H:i:s')
                 );
             }
 
