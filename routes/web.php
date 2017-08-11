@@ -11,7 +11,10 @@
 |
 */
 
-Route::group(['namespace' => 'Web'], function() {
+Route::group([
+    'namespace' => 'Web',
+    'middleware' => 'web_session:' . (7 * 24 * 60)
+], function() {
 
     // 本地环境自动登录
     if (config('app.env') == 'local') {

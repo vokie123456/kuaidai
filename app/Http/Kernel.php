@@ -59,5 +59,6 @@ class Kernel extends HttpKernel
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'rbac' => \App\Http\Middleware\Permissions::class,
         'api_throttle' => \App\Http\Middleware\ApiThrottleRequests::class,
+        'web_session' => \App\Http\Middleware\WebSession::class,
     ];
 }
