@@ -4,13 +4,15 @@
     #loan-cases {
         background-color: #4970f3;
         position: relative;
+        padding-top: 3.4em;
 
         .lc-notify {
             background: #6d8df5;
             color: #fff;
-            font-size: 0.9em;
+            font-size: small;
             text-align: center;
             padding: 0.5em 0;
+            white-space:nowrap;
         }
 
         .case{
@@ -80,13 +82,19 @@
             height: 1px;
             width: 100%;
         }
+
+        .page-part-fixed{
+            position: fixed;
+            width: 100%;
+            top: 0;
+        }
     }
 </style>
 
 <template>
     <div id="loan-cases">
-        <div class="page-part">
-            <div class="lc-notify">根据系统测算，为您推荐以下贷款产品，通过率 <span class="red">80%</span></div>
+        <div class="page-part page-part-fixed">
+            <div class="lc-notify">根据系统测算，为您推荐以下贷款产品，通过率 <span class="red">{{passRate}}%</span></div>
         </div>
 
         <div v-for="caseInfo in cases" :key="caseInfo.id" @click="handleCase(caseInfo.id)" class="page-part page-offset">
@@ -128,7 +136,8 @@
         data() {
             return {
                 Utils,
-                cases: []
+                cases: [],
+                passRate: 80
             };
         },
         methods: {
@@ -137,6 +146,7 @@
                 this.$http.get('/loan/cases').then(resp => {
                     if (resp.body.code === 0) {
                         self.cases = resp.body.data.cases;
+                        self.passRate = resp.body.data.pass_rate;
                     }
                 });
             },

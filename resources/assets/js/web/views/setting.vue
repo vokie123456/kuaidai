@@ -51,8 +51,11 @@
             },
             handleLogout() {
                 let self = this;
-                this.$http.get('/user/logout').then(() => {
-                    self.$router.push({path: '/'});
+                this.$http.get('/user/logout').then((resp) => {
+                    if (resp.body.code === 0) {
+                        self.$router.push({path: '/'});
+                        window.app.isLogin = false;
+                    }
                 });
             }
         },

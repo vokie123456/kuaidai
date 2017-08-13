@@ -22,5 +22,6 @@
 
 </body>
 <script id="global" type="application/json">{!! json_encode($global) !!}</script>
+<script id="products" type="application/json">{!! json_encode($products) !!}</script>
 <script src="{{elixir('js/app.js')}}"></script>
 </html>

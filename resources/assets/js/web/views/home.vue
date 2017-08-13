@@ -66,7 +66,7 @@
         <div class="page-offset page-part">
             <div class="notify">
                 <img src="/images/icon/icon-05.png" class="icon">
-                广州市陈先生通过蚂蚁借呗成功借款1000元
+                {{notifyMsg}}
             </div>
         </div>
 
@@ -74,8 +74,8 @@
             <div class="form">
                 <mt-cell title="完善贷款需求，有助于系统精准分析" class="desc-text"></mt-cell>
                 <mt-field label="本人姓名" v-model="form.name" placeholder="请输入真实姓名"></mt-field>
-                <mt-field label="身份证号" v-model="form.id_card" placeholder="请输入身份证号"></mt-field>
-                <mt-field label="借款金额" v-model="form.loan_amount">元</mt-field>
+                <mt-field label="身份证号" v-model="form.id_card" placeholder="请输入身份证号" type="number"></mt-field>
+                <mt-field label="借款金额" v-model="form.loan_amount" type="number">元</mt-field>
 
                 <a class="mint-cell mint-field">
                     <div class="mint-cell-wrapper" @click="handleOpenLoanDeadline">
@@ -216,6 +216,7 @@
                     slotsLoanDeadline: slotsLoanDeadline,
                 },
                 globalData: {},
+                notifyMsg: '广州市陈先生通过蚂蚁借呗成功借款1000元',
             };
         },
         methods:{
@@ -264,6 +265,22 @@
                     window.removeEventListener('click', this.touchHandler, false);
                 }
             },
+            updateNotify() {
+                let products = JSON.parse(document.querySelector('#products').innerText);
+                let firstNames = ['赵','钱','孙','李','周','吴','郑','王','冯','陈','褚','卫','蒋','沈','韩','杨','朱','秦','尤','许','何','吕','施','张','孔','曹','严','华','金','魏','陶','姜','戚','谢','邹','喻','柏','水','窦','章','云','苏','潘','葛','奚','范','彭','郎','鲁','韦','昌','马','苗','凤','花','方','俞','任','袁','柳','酆','鲍','史','唐','费','廉','岑','薛','雷','贺','倪','汤','滕','殷','罗','毕','郝','邬','安','常','乐','于','时','傅','皮','卞','齐','康','伍','余','元','卜','顾','孟','平','黄','和','穆','萧','尹','姚','邵','湛','汪','祁','毛','禹','狄','米','贝','明','臧','计','伏','成','戴','谈','宋','茅','庞','熊','纪','舒','屈','项','祝','董','梁','杜','阮','蓝','闵','席','季','麻','强','贾','路','娄','危','江','童','颜','郭','梅','盛','林','刁','钟','徐','邱','骆','高','夏','蔡','田','樊','胡','凌','霍','虞','万','支','柯','昝','管','卢','莫','经','房','裘','缪','干','解','应','宗','丁','宣','贲','邓','郁','单','杭','洪','包','诸','左','石','崔','吉','钮','龚','程','嵇','邢','滑','裴','陆','荣','翁','荀','羊','於','惠','甄','麴','家','封','芮','羿','储','靳','汲','邴','糜','松','井','段','富','巫','乌','焦','巴','弓','牧','隗','山','谷','车','侯','宓','蓬','全','郗','班','仰','秋','仲','伊','宫','宁','仇','栾','暴','甘','钭','厉','戎','祖','武','符','刘','景','詹','束','龙','叶','幸','司','韶','郜','黎','蓟','薄','印','宿','白','怀','蒲','邰','从','鄂','索','咸','籍','赖','卓','蔺','屠','蒙','池','乔','阴','郁','胥','能','苍','双','闻','莘','党','翟','谭','贡','劳','逄','姬','申','扶','堵','冉','宰','郦','雍','舄','璩','桑','桂','濮','牛','寿','通','边','扈','燕','冀','郏','浦','尚','农','温','别','庄','晏','柴','瞿','阎','充','慕','连','茹','习','宦','艾','鱼','容','向','古','易','慎','戈','廖','庾','终','暨','居','衡','步','都','耿','满','弘','匡','国','文','寇','广','禄','阙','东','殴','殳','沃','利','蔚','越','夔','隆','师','巩','厍','聂','晁','勾','敖','融','冷','訾','辛','阚','那','简','饶','空','曾','毋','沙','乜','养','鞠','须','丰','巢','关','蒯','相','查','後','荆','红',];
+                let citys = ['广州市','深圳市','珠海市','汕头市','佛山市','韶关市','湛江市','肇庆市','江门市','茂名市','惠州市','梅州市','汕尾市','河源市','阳江市','清远市','东莞市','中山市','潮州市','揭阳市','云浮市',];
+                let sexs = ['先生', '女士'];
+                let self = this;
+
+                setInterval(function() {
+                    let city = citys[Math.floor((Math.random() * citys.length))];
+                    let firstName = firstNames[Math.floor((Math.random() * firstNames.length))];
+                    let product = products[Math.floor((Math.random() * products.length))];
+                    let sex = sexs[Math.floor((Math.random() * sexs.length))];
+
+                    self.notifyMsg = city + firstName + sex + '通过' + product.name + '成功借款' + parseFloat(product.loan_limit_max) + '元';
+                }, 5000);
+            }
         },
         mounted() {
             this.picker.slotsLoanDeadline[0].defaultIndex = 5;
@@ -274,6 +291,8 @@
             if (config) {
                 this.globalData = config;
             }
+
+            this.updateNotify();
         }
     }
 </script>

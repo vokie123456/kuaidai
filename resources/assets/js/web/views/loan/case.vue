@@ -167,7 +167,7 @@
 
         <div class="desc-cell page-part page-offset" v-if="caseInfo.process">
             <div class="desc-header">
-                <img src="/images/web/process.png" class="img-flex" alt="申请流程">
+                <img src="/upload/d9badd53e9aa36b3.png" class="img-flex" alt="申请流程">
             </div>
 
             <div class="desc-body">

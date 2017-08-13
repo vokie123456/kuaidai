@@ -26,7 +26,18 @@ let app = new Vue({
             showTabBar: null,
             router: null,
             tabbarHeight: '55px',
+            isLogin: undefined
         };
+    },
+    methods: {
+        checkLogin() {
+            let self = this;
+            this.$http.get('/islogin').then(resp => {
+                if (resp.body.code === 0) {
+                    self.isLogin = resp.body.data.is_login;
+                }
+            });
+        }
     },
     watch: {
         tabbarSelected(val) {
@@ -68,6 +79,8 @@ let app = new Vue({
         if (config) {
             this.appName = config.appName;
         }
+
+        this.checkLogin();
     }
 });
 

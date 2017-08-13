@@ -62,7 +62,7 @@ class LoanProduct extends Eloquent
         // 减掉3天并换算成小时
         $hour = ($time - 3 * 24 * 3600) / 3600;
 
-        $fields = ['id', 'name', 'logo', 'loan_limit_min', 'loan_limit_max', 'deadline_min', 'deadline_max', 'deadline_type', 'loaneders'];
+        $fields = ['id', 'name', 'logo', 'loan_limit_min', 'loan_limit_max', 'deadline_min', 'deadline_max', 'deadline_type', 'loaneders', 'created_at'];
         /** @var static[] $rows */
         $rows = $this->select($fields)
             ->with('jobs', '_extends')

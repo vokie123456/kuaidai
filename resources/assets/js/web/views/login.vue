@@ -42,7 +42,7 @@
 
             <mt-field label="手机号" placeholder="请输入您的手机号" type="tel" v-model="form.mobile"></mt-field>
 
-            <mt-field label="验证码" v-model="form.captcha">
+            <mt-field label="验证码" v-model="form.captcha" type="number">
                 <mt-button @click="handleCaptcha" size="small" :disabled="form.mobile.length != 11 || !canGetCaptcha">{{captchaText}}</mt-button>
             </mt-field>
 
@@ -103,8 +103,10 @@
                 let self = this;
                 this.$http.post('/login', this.form).then(resp => {
                     if (resp.body.code === 0) {
-                        self.isShow = false;
                         self.$router.go(0);
+                        self.isShow = false;
+                        window.app.showLoginDialog = false;
+                        window.app.isLogin = true;
                     }
                 });
             }

@@ -29,6 +29,17 @@ class AuthController extends Controller
     }
 
     /**
+     * 判断是否登录
+     * @return ApiResponse
+     */
+    public function isLogin()
+    {
+        return ApiResponse::buildSuccess(array(
+            'is_login' => Auth::check()
+        ));
+    }
+
+    /**
      * 登录
      * @param Request $request
      * @return ApiResponse

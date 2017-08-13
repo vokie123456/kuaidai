@@ -46,6 +46,9 @@ Route::group([
     // 登录
     Route::post('login', 'AuthController@login');
 
+    // 判断是否登录
+    Route::get('islogin', 'AuthController@isLogin');
+
     // 获取验证码
     Route::post('captcha', 'AuthController@captcha')->middleware('api_throttle:10,10');
 

@@ -10,6 +10,7 @@ use App\Models\LoanInfoExtend;
 use App\Models\LoanInfoForm;
 use App\Models\LoanProduct;
 use Auth;
+use Cache;
 use Closure;
 use DB;
 use Illuminate\Http\Request;
@@ -151,12 +152,50 @@ class LoanController extends Controller
         }
 
         $cases = $products->getUserCases($form);
+        foreach ($cases as &$case) {
+            $case['loaneders'] = $this->randLoaneders($case);
+            unset($case['created_at']);
+        }
+        $cases = array_values($cases);
+
+        // 通过率
+        $passRate = $this->getPassRate($userId);
 
         $data = array(
-            'cases' => $cases
+            'cases' => $cases,
+            'pass_rate' => $passRate
         );
 
         return ApiResponse::buildSuccess($data);
+    }
+
+    /**
+     * 随机申请人数
+     * @param $case
+     * @return int
+     */
+    private function randLoaneders($case)
+    {
+        $days = (time() - strtotime($case['created_at'])) / 86400;
+        $rand = date('d') % 2 == 0 ? 1 : 2;
+
+        return intval(5 + ($case['id'] % 5) + $days + $rand);
+    }
+
+    /**
+     * 获取通过率
+     * @param $userId
+     * @return mixed
+     */
+    private function getPassRate($userId)
+    {
+        $key = "loan_pass_rate:{$userId}";
+        if (!Cache::has($key)) {
+            $rate = 80 + rand(0, 5) + $userId % 10;
+            Cache::put($key, $rate, 24 * 60);
+        }
+
+        return Cache::get($key);
     }
 
     /**
@@ -177,6 +216,7 @@ class LoanController extends Controller
         $case['detail'] = $case['detail'] ? str_replace("\n", '<br>', $case['detail']) : null;
         $case['condition'] = $case['condition'] ? str_replace("\n", '<br>', $case['condition']) : null;
         $case['_extends'] = $case['_extends'] ? $case['_extends'] : null;
+        $case['loaneders'] = $this->randLoaneders($case);
 
         $data = array(
             'id' => $id,
