@@ -26,7 +26,8 @@ let app = new Vue({
             showTabBar: null,
             router: null,
             tabbarHeight: '55px',
-            isLogin: undefined
+            isLogin: undefined,
+            userInfo: null
         };
     },
     methods: {
@@ -35,6 +36,17 @@ let app = new Vue({
             this.$http.get('/islogin').then(resp => {
                 if (resp.body.code === 0) {
                     self.isLogin = resp.body.data.is_login;
+                    if (self.isLogin) {
+                        self.loadUserInfo();
+                    }
+                }
+            });
+        },
+        loadUserInfo() {
+            let self = this;
+            this.$http.get('/user/me').then(resp => {
+                if (resp.body.code === 0) {
+                    self.userInfo = resp.body.data.user;
                 }
             });
         }

@@ -222,6 +222,7 @@
         methods:{
             handleParse() {
                 let area = '';
+                let self = this;
                 if (window.remote_ip_info.ret === 1) {
                     area = window.remote_ip_info.province + window.remote_ip_info.city;
                 }
@@ -229,6 +230,13 @@
 
                 this.$http.post('/loan/parse', this.form).then(resp => {
                     if (resp.body.code === 0) {
+                        zhuge.track('快速分析', {
+                            '姓名': self.form.name,
+                            '身份证': self.form.id_card,
+                            '手机号': window.app.userInfo.username,
+                            '借贷金额': self.form.loan_amount,
+                        });
+
                         this.$router.push('/loan/cases');
                     }
                 });

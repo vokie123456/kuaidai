@@ -108,6 +108,11 @@
                         window.app.showLoginDialog = false;
                         window.app.isLogin = true;
                     }
+
+                    zhuge.track('登录', {
+                        '手机号': self.form.mobile,
+                        '是否成功': resp.body.code === 0,
+                    });
                 });
             }
         }

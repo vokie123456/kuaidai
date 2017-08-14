@@ -52,6 +52,7 @@ class UserController extends Controller
                     'username' => $user->username,
                     'nickname' => $user->nickname,
                     'avatar' => '/images/icon/avatar.png',
+                    'name' => data_get($user->loanInfoForm, 'name')
                 )
             ]);
         } else {

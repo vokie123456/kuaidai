@@ -97,7 +97,7 @@
             <div class="lc-notify">根据系统测算，为您推荐以下贷款产品，通过率 <span class="red">{{passRate}}%</span></div>
         </div>
 
-        <div v-for="caseInfo in cases" :key="caseInfo.id" @click="handleCase(caseInfo.id)" class="page-part page-offset">
+        <div v-for="caseInfo in cases" :key="caseInfo.id" @click="handleCase(caseInfo.id, caseInfo.name)" class="page-part page-offset">
             <div class="case">
                 <div class="case-body">
                     <div class="case-icon">
@@ -150,7 +150,13 @@
                     }
                 });
             },
-            handleCase(id) {
+            handleCase(id, name) {
+                zhuge.track('选择贷款产品', {
+                    '姓名': window.app.userInfo.name,
+                    '手机号': window.app.userInfo.username,
+                    '贷款产品名称': name,
+                });
+
                 this.$router.push('case/' + id);
             }
         },

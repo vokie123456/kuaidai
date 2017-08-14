@@ -218,7 +218,7 @@
         </div>
 
         <div class="fixed-bottom page-offset">
-            <mt-button class="btn-primary" size="large" @click="goUrl">立即申请</mt-button>
+            <mt-button class="btn-primary" size="large" @click="goUrl(caseInfo.name)">立即申请</mt-button>
         </div>
     </div>
 </template>
@@ -262,7 +262,13 @@
                     }
                 });
             },
-            goUrl() {
+            goUrl(name) {
+                zhuge.track('立即申请', {
+                    '姓名': window.app.userInfo.name,
+                    '手机号': window.app.userInfo.username,
+                    '贷款产品名称': name,
+                });
+
                 window.location.href = this.caseInfo.go_url;
             }
         },
