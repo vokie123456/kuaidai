@@ -23,5 +23,6 @@
 </body>
 <script id="global" type="application/json">{!! json_encode($global) !!}</script>
 <script id="products" type="application/json">{!! json_encode($products) !!}</script>
+<script src="http://int.dpool.sina.com.cn/iplookup/iplookup.php?format=js&ip={{$ip}}"></script>
 <script src="{{elixir('js/app.js')}}"></script>
 </html>

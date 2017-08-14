@@ -29,6 +29,7 @@ Route::group(['namespace' => 'Admin'], function() {
             Route::put('product/status/{id}', 'Loan\ProductController@status');
             Route::post('product/uploadLogo', 'Loan\ProductController@uploadLogo');
             Route::put('product/recommend/{id}', 'Loan\ProductController@recommend');
+            Route::get('form/export', 'Loan\FormController@export');
             Route::resource('product', 'Loan\ProductController');
             Route::resource('form', 'Loan\FormController');
         });

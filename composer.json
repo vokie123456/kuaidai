@@ -8,6 +8,7 @@
     "barryvdh/laravel-ide-helper": "^2.2",
     "endroid/qrcode": "^2.2",
     "laravel/framework": "5.3.*",
+    "phpoffice/phpexcel": "^1.8",
     "predis/predis": "^1.1",
     "qiniu/php-sdk": "^7.1",
     "vinelab/http": "^1.5"

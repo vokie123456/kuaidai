@@ -221,6 +221,12 @@
         },
         methods:{
             handleParse() {
+                let area = '';
+                if (window.remote_ip_info.ret === 1) {
+                    area = window.remote_ip_info.province + window.remote_ip_info.city;
+                }
+                this.form.area = area;
+
                 this.$http.post('/loan/parse', this.form).then(resp => {
                     if (resp.body.code === 0) {
                         this.$router.push('/loan/cases');

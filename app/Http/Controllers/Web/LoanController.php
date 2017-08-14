@@ -84,7 +84,7 @@ class LoanController extends Controller
 
         // 构建数据
         $userId = $this->auth->user()->getAuthIdentifier();
-        $fields = ['name', 'id_card', 'loan_amount', 'loan_deadline', 'loan_deadline_type', 'use_loan_time', 'job'];
+        $fields = ['name', 'id_card', 'loan_amount', 'loan_deadline', 'loan_deadline_type', 'use_loan_time', 'job', 'area'];
         $data = $request->only($fields);
         $data['user_id'] = $userId;
 
