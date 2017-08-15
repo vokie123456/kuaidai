@@ -57,10 +57,14 @@
             </el-col>
         </el-row>
 
-        <el-dialog title="添加" :visible.sync="dialogProductVisible" :close-on-click-modal="false" :close-on-press-escape="false">
+        <el-dialog :visible.sync="dialogProductVisible" :close-on-click-modal="false" :close-on-press-escape="false">
             <el-form ref="form" label-width="80px">
                 <el-form-item label="产品名称">
                     <el-input v-model="productData.name"></el-input>
+                </el-form-item>
+
+                <el-form-item label="申请人数">
+                    <el-input v-model="productData.loaneders"></el-input>
                 </el-form-item>
 
                 <el-form-item label="跳转URL">
@@ -290,6 +294,7 @@
                     jobs: [],
                     process: null,
                     detail: null,
+                    loaneders: 0,
                 };
 
 //                this.productData = {

@@ -64,13 +64,14 @@ class ProductController extends Controller
             'condition' => ['between:0,1000'],
             'process' => ['between:0,1000'],
             'detail' => ['between:0,1000'],
+            'loaneders' => ['integer'],
 
             'extend' => ['array'],
             'jobs' => ['array'],
         ));
 
         $data = $request->only([
-            'name', 'go_url', 'logo', 'loan_limit_min', 'loan_limit_max', 'deadline_min', 'deadline_max', 'deadline_type', 'rate_min', 'rate_max', 'rate_type', 'audit_type', 'audit_cycle', 'loan_time', 'loan_give_type', 'condition', 'process', 'detail'
+            'name', 'go_url', 'logo', 'loan_limit_min', 'loan_limit_max', 'deadline_min', 'deadline_max', 'deadline_type', 'rate_min', 'rate_max', 'rate_type', 'audit_type', 'audit_cycle', 'loan_time', 'loan_give_type', 'condition', 'process', 'detail', 'loaneders'
         ]);
         $data['condition'] = str_replace(["\r", "\r\n"], "\n", $data['condition']);
         $data['process'] = str_replace(["\r", "\r\n"], "\n", $data['process']);
@@ -205,6 +206,7 @@ class ProductController extends Controller
             'condition' => ['between:0,1000'],
             'process' => ['between:0,1000'],
             'detail' => ['between:0,1000'],
+            'loaneders' => ['integer'],
 
             'extend' => ['array'],
             'jobs' => ['array'],
@@ -213,7 +215,7 @@ class ProductController extends Controller
         /** @var LoanProduct $model */
         $model = LoanProduct::findOrFail($id);
         $data = $request->only([
-            'name', 'go_url', 'logo', 'loan_limit_min', 'loan_limit_max', 'deadline_min', 'deadline_max', 'deadline_type', 'rate_min', 'rate_max', 'rate_type', 'audit_type', 'audit_cycle', 'loan_time', 'loan_give_type', 'condition', 'process', 'detail'
+            'name', 'go_url', 'logo', 'loan_limit_min', 'loan_limit_max', 'deadline_min', 'deadline_max', 'deadline_type', 'rate_min', 'rate_max', 'rate_type', 'audit_type', 'audit_cycle', 'loan_time', 'loan_give_type', 'condition', 'process', 'detail', 'loaneders'
         ]);
         $data['condition'] = str_replace(["\r", "\r\n"], "\n", $data['condition']);
         $data['process'] = str_replace(["\r", "\r\n"], "\n", $data['process']);

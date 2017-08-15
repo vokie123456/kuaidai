@@ -178,8 +178,9 @@ class LoanController extends Controller
     {
         $days = (time() - strtotime($case['created_at'])) / 86400;
         $rand = date('d') % 2 == 0 ? 1 : 2;
+        $loaneders = (int)data_get($case, 'loaneders');
 
-        return intval(5 + ($case['id'] % 5) + $days + $rand);
+        return $loaneders + intval(5 + ($case['id'] % 5) + $days + $rand);
     }
 
     /**
