@@ -243,10 +243,9 @@
                 this.form.area = area;
                 self.parseLoad = true;
                 self.$http.post('/loan/parse', this.form, {unload: true}).then(resp => {
-                    self.parseLoad = false;
-
                     if (resp.body.code === 0) {
                         setTimeout(() => {
+                            self.parseLoad = false;
                             zhuge.track('快速分析', {
                                 '姓名': self.form.name,
                                 '身份证': self.form.id_card,
@@ -256,6 +255,8 @@
 
                             self.$router.push({path: '/loan/cases'});
                         }, 1000);
+                    } else {
+                        self.parseLoad = false;
                     }
                 }).catch(function() {
                     self.parseLoad = false;
@@ -335,16 +336,16 @@
                 this.globalData = config;
             }
 
-//            this.form = {
-//                name: '林博',
-//                id_card: '123123123123123123',
-//                loan_amount: 100,
-//                loan_deadline: 1,
-//                loan_deadline_type: '日',
-//                use_loan_time: '2017-08-08',
-//                job: 1,
-//                more_info: [1]
-//            };
+            this.form = {
+                name: '林博',
+                id_card: '123123123123123123',
+                loan_amount: 100,
+                loan_deadline: 1,
+                loan_deadline_type: '日',
+                use_loan_time: '2017-08-08',
+                job: 1,
+                more_info: [1]
+            };
 
             this.updateNotify();
         }
