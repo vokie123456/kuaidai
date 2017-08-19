@@ -125,9 +125,6 @@ class LoanController extends Controller
             }
 
             DB::commit();
-
-            // 事务提交成功后，停留3s，制造数据分析loading的假象
-            sleep(3);
         } catch (\Exception $e) {
             DB::rollBack();
 
