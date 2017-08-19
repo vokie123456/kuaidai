@@ -234,6 +234,12 @@
                     area = window.remote_ip_info.province + window.remote_ip_info.city;
                 }
 
+                // 登录
+                if (!window.app.isLogin) {
+                    window.app.showLoginDialog = true;
+                    return;
+                }
+
                 this.form.area = area;
                 self.parseLoad = true;
                 self.$http.post('/loan/parse', this.form, {unload: true}).then(resp => {
@@ -321,7 +327,6 @@
                     this.parseLoadLabels.push(this.parseLoadLabels[i]);
                 }
             }
-
 
             let config = JSON.parse(document.querySelector('#global').innerText);
             if (config) {

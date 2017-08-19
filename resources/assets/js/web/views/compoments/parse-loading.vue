@@ -195,13 +195,13 @@
         z-index: 99;
 
         .modal{
-            opacity: 0.8;
+            opacity: 0.5;
             position: fixed;
             top: 0;
             right: 0;
             bottom: 0;
             left: 0;
-            background-color: #fff;
+            background-color: #000;
         }
 
         .tagscloud {
