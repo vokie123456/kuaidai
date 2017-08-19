@@ -10,12 +10,21 @@ Vue.use(VueRouter);
 
 Vue.http.options.emulateJSON = true;
 Vue.http.interceptors.push(function(request, next) {
-    Indicator.open();
+    let unload = false;
+    if (request.unload) {
+        unload = true;
+    }
+
+    if (!unload) {
+        Indicator.open();
+    }
 
     request.headers.set('X-CSRF-TOKEN', document.querySelector('meta[name="csrf-token"]').content);
 
     next(function(response) {
-        Indicator.close();
+        if (!unload) {
+            Indicator.close();
+        }
 
         if (typeof response.body === 'object') {
             let body = response.body;
