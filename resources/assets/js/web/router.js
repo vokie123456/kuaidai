@@ -9,6 +9,7 @@ Vue.use(VueResource);
 Vue.use(VueRouter);
 
 Vue.http.options.emulateJSON = true;
+Vue.http.options.responseType = 'json';
 Vue.http.interceptors.push(function(request, next) {
     let unload = false;
     if (request.unload) {
