@@ -246,14 +246,16 @@
                     self.parseLoad = false;
 
                     if (resp.body.code === 0) {
-                        zhuge.track('快速分析', {
-                            '姓名': self.form.name,
-                            '身份证': self.form.id_card,
-                            '手机号': window.app.userInfo.username,
-                            '借贷金额': self.form.loan_amount,
-                        });
+                        setTimeout(() => {
+                            zhuge.track('快速分析', {
+                                '姓名': self.form.name,
+                                '身份证': self.form.id_card,
+                                '手机号': window.app.userInfo.username,
+                                '借贷金额': self.form.loan_amount,
+                            });
 
-                        this.$router.push({path: '/loan/cases'});
+                            self.$router.push({path: '/loan/cases'});
+                        }, 1000);
                     }
                 }).catch(function() {
                     self.parseLoad = false;
