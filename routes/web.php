@@ -17,7 +17,7 @@ Route::group([
 ], function() {
 
     // 本地环境自动登录
-    if (config('app.env') == 'local') {
+    if (config('app.env') == 'local' || (config('app.env') == 'test' && Request::input('test'))) {
         $user = \App\Models\User::first();
         Auth::guard('web')->login($user);
     }
