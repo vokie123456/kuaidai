@@ -257,6 +257,7 @@
                     }
                 }).catch(function() {
                     self.parseLoad = false;
+                    alert(arguments);
                 });
             },
             handleUseLoanTimeChange(value) {
