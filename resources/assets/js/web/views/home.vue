@@ -335,16 +335,16 @@
                 this.globalData = config;
             }
 
-            this.form = {
-                name: '林博',
-                id_card: '123123123123123123',
-                loan_amount: 100,
-                loan_deadline: 1,
-                loan_deadline_type: '日',
-                use_loan_time: '2017-08-08',
-                job: 1,
-                more_info: [1]
-            };
+//            this.form = {
+//                name: '林博',
+//                id_card: '123123123123123123',
+//                loan_amount: 100,
+//                loan_deadline: 1,
+//                loan_deadline_type: '日',
+//                use_loan_time: '2017-08-08',
+//                job: 1,
+//                more_info: [1]
+//            };
 
             this.updateNotify();
         }
