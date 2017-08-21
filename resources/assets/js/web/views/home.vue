@@ -244,7 +244,6 @@
                 self.parseLoad = true;
                 self.$http.post('/loan/parse', this.form, {unload: true}).then(resp => {
                     if (resp.body.code === 0) {
-                        self.parseLoad = false;
                         zhuge.track('快速分析', {
                             '姓名': self.form.name,
                             '身份证': self.form.id_card,
@@ -253,9 +252,10 @@
                         });
 
                         setTimeout(() => {
+                            self.parseLoad = false;
                             window.location.hash = '/loan/cases';
 //                            self.$router.push({path: '/loan/cases'});
-                        }, 1000);
+                        }, 3000);
                     } else {
                         self.parseLoad = false;
                     }
