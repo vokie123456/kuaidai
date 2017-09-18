@@ -243,6 +243,17 @@
                 this.form.area = area;
                 self.parseLoad = true;
                 self.$http.post('/loan/parse', this.form, {unload: true}).then(resp => {
+
+                    self.$http.get('/log', {
+                        unparse: true,
+                        params: {
+                            method: 'then',
+                            r3: (resp.body.code === 0 ? 'true' : 'false'),
+                            r2: (resp.body.code == 0 ? 'true' : 'false'),
+                            code: resp.body.code,
+                        }
+                    });
+
                     if (resp.body.code === 0) {
                         zhuge.track('快速分析', {
                             '姓名': self.form.name,
@@ -260,6 +271,14 @@
                         self.parseLoad = false;
                     }
                 }).catch(function() {
+                    self.$http.get('/log', {
+                        unparse: true,
+                        params: {
+                            method: 'catch',
+                            arguments: arguments
+                        }
+                    });
+
                     self.parseLoad = false;
                 });
             },
